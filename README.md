@@ -41,6 +41,43 @@ html[data-race-theme="active"] {
 
 Try the alternate appearance by entering `papaya` in Command Prompt. A five-light start sequence switches the desktop; enter `classic` to return to XP. The theme remembers its setting locally and respects reduced-motion preferences. These commands are handled by the included appearance controller rather than a separate framework.
 
+### A McLaren across the taskbar
+
+A cutout McLaren races along the top edge of the taskbar in both appearances. Each pass alternates direction, accelerates, cruises, then eases out of view. The car is decorative and does not intercept clicks on the desktop.
+
+![McLaren captured during a pass across the papaya desktop taskbar](docs/screenshots/mclaren-taskbar-racer.jpg)
+
+The wheels move independently of the body. Circular SVG clips isolate the front and rear wheels from the same transparent car image. Each animation frame rotates them by the distance the car has travelled, using `angle = distance / radius` in radians. This ties their rotation to road speed instead of running an unrelated wheel animation. At high angular speeds, a blurred wheel disc replaces the spokes to reduce flicker; a subtle body movement and trailing effect complete the pass.
+
+![Close view of the McLaren and its separately animated front and rear wheels](docs/screenshots/mclaren-wheel-motion.jpg)
+
+These screenshots freeze the animation; open the live desktop to see the wheels turn. The implementation lives in [`desktop-racer.js`](site/desktop-racer.js) and [`desktop-racer.css`](site/desktop-racer.css), without an animation library.
+
+- **Timing:** random 20–45 second gaps in classic XP and 8–16 second gaps in the racing theme. Normal desktop passes last about 2.2–2.9 seconds; screens narrower than 600 px use one-second passes.
+- **Controls:** the papaya tray icon turns the car on or off and remembers that choice locally.
+- **Motion and visibility:** animation pauses when the tab is hidden. Reduced-motion preferences disable it by default; explicitly enabling it uses a slower, simplified pass.
+
+### Lights out: preparing the racing view
+
+The five-second start sequence is also preparation time for the racing view. Entering `papaya` keeps the classic desktop visible while the gantry lights illuminate one paired column per second. The circuit begins preparing asynchronously during the countdown.
+
+| Stage | What happens |
+| --- | --- |
+| 0–1 seconds | The first paired column lights up and circuit preparation starts. |
+| 1–4 seconds | The remaining columns light in order, giving the circuit time to initialize while the visitor watches the sequence. |
+| 4–5 seconds | All five paired columns are red. |
+| At 5 seconds | The lights disappear together and the papaya appearance activates. |
+
+![First paired column illuminated at the start of the countdown](docs/screenshots/lights-out-first-column.jpg)
+
+![Three paired columns illuminated while the circuit prepares in the background](docs/screenshots/lights-out-preparing.jpg)
+
+![All five paired columns illuminated just before lights out](docs/screenshots/lights-out-countdown.jpg)
+
+The countdown calls `prepareCircuit()` immediately, which starts the asynchronous `mountCircuit()` work and avoids starting duplicate preparations. At five seconds, `completeCountdown()` removes the gantry and activates the theme. It is a fixed visual countdown, not a progress meter or a guarantee that every asset has finished loading. With reduced motion enabled, the countdown is skipped. Entering `classic` cancels an active sequence and restores XP.
+
+See [`race-theme.js`](site/race-theme.js) for the sequence and theme controller, [`race-theme.css`](site/race-theme.css) for the gantry and lights, and [`race-circuit.js`](site/race-circuit.js) for circuit preparation. The McLaren, racing and Formula 1 artwork remains subject to the ownership notices below.
+
 ## Get started
 
 1. Open [nzjosh.com](https://nzjosh.com/) and select Joshua's login tile.
