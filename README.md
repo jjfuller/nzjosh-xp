@@ -1,6 +1,6 @@
 # NZJOSH XP
 
-**Website version: 2026.11.16.21** · Released November 16, 2026. This repository captures that website version; the live site may receive later updates. Version details are recorded in [`site/version.js`](site/version.js).
+**Website version: 2026.11.16.23** · Released November 16, 2026. This repository captures that website version with personal content removed; the live site may receive later updates. Version details are recorded in [`site/version.js`](site/version.js). Download the [latest public release](https://github.com/jjfuller/nzjosh-xp/releases/latest).
 
 An interactive Windows XP desktop in your browser. Explore Joshua Fuller's desktop, browse photos and certificates, chat with Josh Bot, and stay for a game.
 
@@ -115,6 +115,16 @@ The public repository is a **blank personal-content template**. It contains no p
 
 To personalize a private copy, populate `site/profile.json` with your own public profile and gallery entries, then provide your own approved assets. Do not commit private data, `.env` files or deployment credentials.
 
-Created by **Joshua Fuller & ChatGPT**.
+## Credits
 
-Public source availability does not by itself grant a reuse license. A code license has not yet been selected. Third-party images, trademarks and assets retain their respective rights; see [asset credits](site/CREDITS.md) and [in-app notices](site/legal-notices.js). NZJOSH is a personal fan project and is not affiliated with or endorsed by Microsoft, McLaren or Formula 1.
+- **Joshua Fuller** — creator, project direction, design decisions, content and final review.
+- **[ChatGPT](https://chatgpt.com/) by OpenAI** — assistance with implementation, debugging, documentation and design iteration. This credit acknowledges AI assistance; it does not imply OpenAI endorsement or repository membership.
+- Third-party artwork, icons, fonts, trademarks and photographs belong to their respective owners. See [asset credits](site/CREDITS.md) and [in-app notices](site/legal-notices.js).
+
+## Community and support
+
+Read the [contribution guidelines](CONTRIBUTING.md), [code of conduct](CODE_OF_CONDUCT.md), [security policy](SECURITY.md) and [support guide](SUPPORT.md) before opening an issue or pull request. Use the issue templates for bug reports and feature requests. Never attach private photographs, certificates, contact details, credentials or personal website exports.
+
+## Copyright and permissions
+
+Joshua Fuller's original code and documentation are available under the **[MIT License](LICENSE)**. Third-party images, photographs, fonts and trademarks retain their own rights and are not relicensed by this project; read [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) before reusing assets. NZJOSH is a personal fan project and is not affiliated with or endorsed by Microsoft, McLaren, Formula 1 or OpenAI.

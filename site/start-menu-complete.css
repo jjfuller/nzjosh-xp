@@ -6,3 +6,6 @@
 /* The bitmap's green highlight is inset two rows below the blue taskbar rim.
    Align that artwork while keeping the button and its hit area unchanged. */
 #start-button{background-position:left -2px;background-size:100% calc(100% + 2px);}
+
+/* Match the neighboring menu labels; retain theme hover/focus colors. */
+.start-right a.menu-item[data-github-repository]:not(:hover):not(:focus-visible){color:inherit;}

@@ -9,6 +9,18 @@ export function completeStartMenu(){
   function reconcile(){
     start.querySelectorAll('[data-open="media"]').forEach(button=>button.remove());
     const right=start.querySelector('.start-right');
+    // A real anchor reuses the desktop's accessible external-link confirmation.
+    if(right&&!right.querySelector('[data-github-repository]')){
+      const link=document.createElement('a');link.className='menu-item';link.dataset.githubRepository='';
+      link.href='https://github.com/jjfuller/nzjosh-xp';link.target='_blank';link.rel='noopener noreferrer';
+      link.title='View the public NZJOSH XP repository on GitHub';
+      link.style.cssText='text-decoration:none;box-sizing:border-box';
+      const image=document.createElement('img');image.src='assets/e3555b8ab0bac10d.webp';image.alt='';
+      const span=document.createElement('span'),label=document.createElement('b');label.textContent='GitHub';
+      span.append(label);link.append(image,span);
+      const steam=right.querySelector('[data-open="social:steam"]');
+      if(steam)steam.after(link);else right.prepend(link);
+    }
     if(right&&!right.querySelector('[data-open="minesweeper"]')){
       const button=document.createElement('button');button.className='menu-item';button.dataset.open='minesweeper';
       const image=document.createElement('img');image.src='assets/minesweeper.svg';image.alt='';const span=document.createElement('span'),label=document.createElement('b');label.textContent='Minesweeper';span.append(label);button.append(image,span);right.insertBefore(button,right.querySelector('[data-open="notepad"]'));
