@@ -1,0 +1,34 @@
+{
+  "name": "",
+  "headline": "",
+  "location": "",
+  "email": "",
+  "phone": "",
+  "availability": "",
+  "avatar": "",
+  "bio": [
+    "",
+    "",
+    ""
+  ],
+  "skills": [],
+  "software": [],
+  "resumeUrl": "",
+  "resumeText": "",
+  "socials": {
+    "linkedin": "",
+    "letterboxd": "",
+    "steam": ""
+  },
+  "projects": [],
+  "gallery": [],
+  "websiteUrl": "",
+  "desktopTitle": "NZJOSH XP",
+  "wallpaper": "assets/bliss.jpg",
+  "crt": false,
+  "startupSound": true,
+  "resumePages": [],
+  "botAvatar": "",
+  "personalBio": [],
+  "publicResumeUrl": ""
+}

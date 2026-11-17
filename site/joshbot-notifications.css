@@ -1,0 +1,15 @@
+/* XP-style application notification. The pointer follows the JoshBot tray icon. */
+.joshbot-balloon{position:fixed;bottom:46px;right:10px;z-index:1600;box-sizing:border-box;width:min(352px,calc(100vw - 20px));max-height:calc(100dvh - 80px);padding:12px;display:grid;grid-template-columns:32px minmax(0,1fr) 26px;column-gap:10px;row-gap:7px;background:#ffffe7;color:#192635;border:1px solid #837d59;border-radius:7px;box-shadow:2px 3px 9px #0003;font:12px/1.45 Tahoma,Verdana,sans-serif;}
+.joshbot-balloon:after{content:'';position:absolute;right:var(--tail-right,36px);bottom:-7px;width:12px;height:12px;background:#ffffe7;border-right:1px solid #837d59;border-bottom:1px solid #837d59;transform:rotate(45deg);box-shadow:none;}
+.joshbot-balloon>img{position:static;grid-column:1;grid-row:1 / span 2;width:32px;height:32px;object-fit:contain;align-self:start;margin-top:2px;border-radius:4px;}
+.joshbot-balloon>strong{grid-column:2;grid-row:1;display:block;font-size:12px;font-weight:bold;margin:0;align-self:center;line-height:1.4;}
+.joshbot-balloon .balloon-close{position:static;grid-column:3;grid-row:1;justify-self:end;align-self:start;display:grid;place-items:center;width:24px;height:24px;min-width:24px;min-height:24px;border:1px solid transparent;border-radius:3px;background:transparent;color:#6f715e;font:19px/1 Tahoma;padding:0;margin:-4px -4px 0 0;}
+.joshbot-balloon .balloon-close:hover{background:#f4edce;border-color:#b8af86;color:#222;}
+.joshbot-balloon .balloon-message{grid-column:2 / 4;grid-row:2;display:block;text-align:left;width:100%;margin:0;padding:0;border:0;border-radius:0;background:none;color:#253b52;font:12px/1.55 Tahoma,Verdana,sans-serif;overflow-wrap:anywhere;}
+.joshbot-balloon .balloon-message:hover{text-decoration:underline;color:#174c92;}
+.joshbot-balloon>div{grid-column:1 / -1;grid-row:3;display:flex;flex-wrap:wrap;gap:6px 12px;padding-top:8px;margin-top:2px;border-top:1px solid #dedbb9;}
+.joshbot-balloon>div button{display:block;width:auto;max-width:100%;margin:0;padding:3px 1px;min-height:24px;white-space:normal;background:none;border:0;border-radius:0;text-decoration:underline;text-underline-offset:2px;color:#1e5594;font:11px/1.4 Tahoma,Verdana,sans-serif;}
+.joshbot-balloon>div button:last-child{margin-left:auto;color:#77725c;}
+.joshbot-balloon button:focus-visible{outline:2px solid #245edb;outline-offset:3px;}
+@media(pointer:coarse){.joshbot-balloon{grid-template-columns:32px minmax(0,1fr) 36px;padding:12px;}.joshbot-balloon .balloon-close{width:36px;height:36px;min-width:36px;min-height:36px;margin:-5px -5px 0 0;}.joshbot-balloon .balloon-message{min-height:44px;}.joshbot-balloon>div button{min-height:44px;padding:6px 2px;}}
+@media(prefers-reduced-motion:reduce){.joshbot-balloon{animation:none;}}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#245edb">
+  <meta name="description" content="NZJOSH XP — Joshua Fuller’s personal desktop. Created by Joshua Fuller &amp; ChatGPT.">
+  <meta name="author" content="Joshua Fuller &amp; ChatGPT">
+  <meta name="robots" content="index, follow">
+  <title>NZJOSH XP</title>
+  <link rel="icon" href="assets/windows-logo.svg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="programs.css">
+<link rel="canonical" href="https://nzjosh.com/">
+</head>
+<body>
+  <a class="skip-link" href="#desktop-icons">Skip to desktop applications</a>
+  <div id="boot-screen" class="screen boot-screen" aria-label="Starting Windows XP">
+    <div class="boot-brand"><img src="assets/windows-logo.svg" alt=""><div><span class="microsoft">Microsoft</span><strong>Windows<span>xp</span></strong><small>Personal desktop</small></div></div>
+    <div class="boot-progress" aria-label="Loading"><i></i><i></i><i></i></div>
+    <div class="boot-footer"><span>Created by Joshua Fuller &amp; ChatGPT</span><b>NZJOSH XP</b></div>
+    <p class="fullscreen-hint">For the best experience Enter Full Screen (F11)</p>
+    <button class="skip-boot" id="skip-boot">Skip startup</button>
+  </div>
+  <section id="login-screen" class="screen login-screen hidden" aria-label="Welcome screen">
+    <div class="login-top"></div>
+    <div class="login-middle">
+      <div class="login-brand"><div class="login-logo"><img src="assets/windows-logo.svg" alt=""><div><strong data-brand>NZJOSH<span>xp</span></strong><small data-headline></small></div></div><p>To begin, click on <span data-name>Your name</span> to log in</p></div>
+      <div class="login-divider"></div>
+      <button id="login-button" class="login-account"><img class="avatar" src="assets/user.png" alt="Profile picture"><span><strong data-name>Your name</strong><small data-headline></small></span><span class="login-arrow">➜</span></button>
+    </div>
+    <footer class="login-footer"><button id="login-restart"><img src="assets/79e9cd623e255141.webp" alt="">Restart <span data-brand>NZJOSH XP</span></button><p>After you log on, the system's yours to explore.<br>Every detail has been designed with a purpose.</p></footer>
+  </section>
+  <main id="desktop" class="screen desktop hidden" aria-label="Desktop">
+    <nav id="desktop-icons" class="desktop-icons" aria-label="Desktop applications"></nav>
+    <div id="windows" aria-live="polite"></div>
+    <div id="selection-box"></div>
+    <aside id="start-menu" class="start-menu hidden" aria-label="Start menu"></aside>
+    <div id="context-menu" class="context-menu hidden"></div>
+    <aside id="volume-popup" class="tray-popup hidden"><div>Volume</div><input id="volume-range" type="range" min="0" max="100" value="60" aria-label="Volume"><label><input id="mute-audio" type="checkbox"> Mute</label></aside>
+    <aside id="hidden-tray" class="hidden-tray hidden"><button id="crt-quick" type="button" aria-label="Toggle CRT effect" aria-pressed="false">CRT Off</button><button data-open="display" title="Display properties" aria-label="Display properties"><img src="assets/display.svg" alt=""></button><button data-open="credits" title="About this desktop">ⓘ</button></aside>
+    <div id="toast" class="messenger-toast hidden"></div>
+    <footer class="taskbar" aria-label="Taskbar">
+      <button id="start-button" class="start-button" aria-label="Open Start Menu" aria-expanded="false"></button>
+      <div id="task-buttons" class="task-buttons"></div>
+      <div class="system-tray"><button id="tray-chevron" aria-label="Show hidden icons"><span class="tray-chevron-icon" aria-hidden="true"></span></button><button id="messenger-tray" title="JoshBot" aria-label="Open JoshBot" data-open="messenger"><img src="assets/90bd599f67c5a490.webp" alt="JoshBot"></button><button id="volume-button" aria-label="Adjust volume"><img src="assets/volume-speaker.svg" alt="Volume"></button><time id="clock" aria-label="Current time"></time></div>
+    </footer>
+  </main>
+  <div id="crt-overlay" class="crt-overlay" aria-hidden="true"></div>
+  <script type="module" src="desktop.js"></script>
+</body>
+</html>

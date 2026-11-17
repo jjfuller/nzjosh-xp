@@ -1,0 +1,89 @@
+html[data-race-theme="active"] {
+  --race-primary:#ff8000; --race-dark:#15171a; --race-panel:#23272d;
+  --race-raised:#343a43; --race-text:#ffffff; --race-muted:#c9d0d9;
+  --race-ink:#111317; --race-blue:#73d5ff; --race-line:#64707c;
+  --race-wallpaper:url('./race-wallpaper.webp');
+}
+html[data-race-theme="active"] #desktop {background-image:var(--race-wallpaper)!important;background-color:var(--race-dark)!important;}
+html[data-race-theme="active"] :is(.window-titlebar,.start-header,.start-footer,.taskbar) {background:var(--race-primary)!important;color:var(--race-ink);text-shadow:none;border-color:var(--race-dark);box-shadow:none;}
+html[data-race-theme="active"] .app-window {border-color:var(--race-primary);}
+html[data-race-theme="active"] .taskbar {background:var(--race-dark)!important;border-top:1px solid var(--race-primary);box-shadow:inset 0 1px var(--race-line);}
+html[data-race-theme="active"] #start-button {border-right:1px solid var(--race-primary);}
+html[data-race-theme="active"] :is(.window-titlebar strong,.start-header strong) {text-shadow:none;color:var(--race-ink);}
+html[data-race-theme="active"] :is(.window-controls button,.task-button,.system-tray,.system-tray #tray-chevron) {background:var(--race-panel);color:var(--race-text);border-color:var(--race-line);box-shadow:none;}
+html[data-race-theme="active"] .window-controls button:hover {background:var(--race-raised);}
+html[data-race-theme="active"] :is(.task-button.active,.task-button:hover) {background:var(--race-dark);border-color:var(--race-blue);}
+html[data-race-theme="active"] #start-button {background:var(--race-dark)!important;color:var(--race-text);filter:none;}
+html[data-race-theme="active"] #start-button {display:flex;align-items:center;justify-content:center;gap:5px;}
+html[data-race-theme="active"] #start-button::before {content:'';display:block;flex:none;width:26px;height:21px;background:url('./race-start-mark.svg') center/contain no-repeat;}
+html[data-race-theme="active"] #start-button::after {content:'start';font:italic bold 18px Tahoma,Arial,sans-serif;}
+html[data-race-theme="active"] .program-credits .credits {color:var(--race-ink);}
+html[data-race-theme="active"] .program-credits .credits a {color:#0645ad;}
+html[data-race-theme="active"] :is(.start-menu,.start-left,.start-right,.programs-submenu,.context-menu,.tray-popup,.hidden-tray) {background:var(--race-panel);color:var(--race-text);border-color:var(--race-line);}
+html[data-race-theme="active"] :is(.menu-item:hover,.menu-item:focus-visible,.context-menu button:hover,.desktop-icon.selected span) {background:var(--race-primary);color:var(--race-ink);}
+html[data-race-theme="active"] :is(.menu-item small,.muted) {color:var(--race-muted);}
+html[data-race-theme="active"] .menu-item:hover small {color:var(--race-ink);}
+html[data-race-theme="active"] :is(.window-menubar,.window-toolbar,.addressbar,.statusbar) {background:var(--race-panel);color:var(--race-text);border-color:var(--race-line);}
+html[data-race-theme="active"] :is(.window-content,.about-blue,.explorer-sidebar,.about-copy,.explorer-card) {background-color:var(--race-panel);color:var(--race-text);}
+html[data-race-theme="active"] :is(.window-content a,.explorer-sidebar a) {color:var(--race-blue);}
+html[data-race-theme="active"] .explorer-sidebar {background:var(--race-dark);border-color:var(--race-line);}
+html[data-race-theme="active"] .explorer-card h3 {background:var(--race-raised);color:var(--race-text);}
+html[data-race-theme="active"] .explorer-card-body {background:var(--race-panel);color:var(--race-text);}
+html[data-race-theme="active"] .explorer-card-body>span {color:var(--race-text);}
+html[data-race-theme="active"] .about-copy h1 {text-shadow:none;}
+html[data-race-theme="active"] .address-input {background:var(--race-raised);color:var(--race-text);}
+html[data-race-theme="active"] :is(.xp-button,.calculator button) {background:var(--race-raised);color:var(--race-text);border-color:var(--race-line);box-shadow:none;}
+html[data-race-theme="active"] .xp-button:hover {border-color:var(--race-primary);}
+html[data-race-theme="active"] .command-prompt {background:var(--race-dark);color:var(--race-primary);}
+html[data-race-theme="active"] .command-prompt input {color:var(--race-primary);background:transparent;}
+html[data-race-theme="active"] .program-contact .contact-form {color:var(--race-ink);}
+html[data-race-theme="active"] .program-contact :is(.contact-toolbar,.contact-address,.contact-notice) {color:var(--race-ink);}
+html[data-race-theme="active"] .program-contact .contact-toolbar button {color:var(--race-ink);}
+html[data-race-theme="active"] ::selection {background:var(--race-primary);color:var(--race-ink);}
+@media(prefers-reduced-motion:no-preference) {
+  html[data-race-theme="active"] :is(.window-titlebar,.taskbar,.start-menu,.task-button,.window-menubar,.window-toolbar) {transition:background-color 220ms ease,color 220ms ease;}
+}
+#race-circuit {position:fixed;right:18px;top:18px;width:320px;z-index:1400;pointer-events:none;opacity:0;visibility:hidden;background:#15171a;color:#fff;border:1px solid #ff8000;border-radius:5px;box-shadow:0 3px 12px #0006;font:12px Tahoma,Arial,sans-serif;transition:opacity 200ms ease,visibility 200ms;}
+#race-circuit.visible {opacity:1;visibility:visible;}
+#race-circuit header {display:flex;justify-content:space-between;align-items:center;padding:9px 10px 2px;}
+#race-circuit header span {font-size:10px;color:#ff9b38;letter-spacing:1px;}
+#race-circuit svg {display:block;width:100%;height:auto;overflow:visible;}
+#race-circuit path {fill:none;stroke-linecap:round;stroke-linejoin:round;}
+#race-circuit .circuit-edge {stroke:#ff8000;stroke-width:15;}
+#race-circuit .circuit-road {stroke:#343a43;stroke-width:10;}
+#race-circuit .pit-lane {stroke:#7b8794;stroke-width:2;}
+#race-circuit .finish-line {stroke:#fff;stroke-width:5;stroke-linecap:butt;}
+#race-circuit .driver circle {fill:#ff8000;stroke:#fff;stroke-width:3;}
+#race-circuit .driver text {fill:#fff;stroke:#15171a;stroke-width:5;paint-order:stroke;font:bold 25px Tahoma,Arial,sans-serif;text-anchor:middle;dominant-baseline:middle;}
+#race-circuit .race-times {padding:2px 9px 6px;font-size:11px;font-variant-numeric:tabular-nums;}
+#race-circuit footer {padding:0 9px 9px;color:#c9d0d9;font-size:10px;}
+#race-circuit .race-timing-open {pointer-events:auto;display:block;margin:0 9px 9px;padding:5px 10px;background:#343a43;color:#fff;border:1px solid #ff8000;border-radius:3px;}
+.race-timing-page {padding:18px;background:#15171a;color:#fff;min-height:100%;font:14px/1.5 Tahoma,Arial,sans-serif;}
+.race-timing-page h1 {font-size:20px;margin:0 0 8px;}
+.race-timing-page p {margin:8px 0;}
+.race-timing-page table {border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;white-space:nowrap;margin:12px 0;}
+.race-timing-page caption {text-align:left;font-weight:bold;margin-bottom:5px;}
+.race-timing-page :is(th,td) {padding:7px 9px;text-align:left;border-bottom:1px solid #64707c;}
+.race-timing-page thead {background:#343a43;}
+.timing-scroll {overflow:auto;}
+.race-timing-page .timing-purple {color:#e4b3ff;font-weight:bold;}
+.race-timing-page .timing-green {color:#8cf0a4;font-weight:bold;}
+.race-timing-page .timing-orange {color:#ffb66e;font-weight:bold;}
+.sector-key {display:flex;gap:12px;flex-wrap:wrap;}
+.sector-key span:nth-child(1) {color:#ff997a;}
+.sector-key span:nth-child(2) {color:#73d5ff;}
+.sector-key span:nth-child(3) {color:#ffe078;}
+@media(max-width:599px) {#race-circuit {display:none;}}
+@media(prefers-reduced-motion:reduce) {#race-circuit {transition:none;}}
+#race-start-lights {position:fixed;top:22px;left:50%;transform:translateX(-50%);width:min(310px,80vw);z-index:1900;pointer-events:none;}
+#race-start-lights .race-gantry {position:relative;height:76px;border:1px solid #45494e;border-radius:10px;background:linear-gradient(#292b2e,#17191c);display:grid;place-items:center;box-shadow:0 3px 10px #0005;}
+#race-start-lights .race-gantry::before {content:'';position:absolute;left:-30px;right:-30px;top:38px;height:8px;background:#292b2e;z-index:-1;}
+#race-start-lights .race-gantry {background-image:url('./start-gantry.webp');background-size:640px 480px;background-position:center -74px;background-repeat:no-repeat;}
+#race-start-lights strong {color:#ff8000;font:italic bold 27px Tahoma,Arial,sans-serif;letter-spacing:1px;}
+#race-start-lights strong span {display:block;color:#fff;font:10px Tahoma,Arial,sans-serif;letter-spacing:5px;text-align:center;margin-top:3px;}
+#race-start-lights .race-light-columns {display:flex;justify-content:space-around;padding:0 7px;}
+#race-start-lights .race-light-column {display:flex;flex-direction:column;gap:5px;background:#090b0e;padding:6px 7px 8px;border-radius:0 0 9px 9px;}
+#race-start-lights i {display:block;width:26px;height:26px;border:2px solid #34373b;border-radius:50%;background:#44484d;}
+@media(prefers-reduced-motion:reduce) {#race-start-lights {display:none;animation:none;}}
+
+#race-start-lights .race-light-column.lit i {background:#f7312f;box-shadow:0 0 10px #f7312f66;}

@@ -1,0 +1,8 @@
+/* Keep the existing Start layout; only constrain the expanded program list. */
+.all-programs .programs-submenu{box-sizing:border-box;left:100%;width:230px;max-width:calc(100vw - 180px);max-height:calc(100dvh - 65px);overflow-y:auto;overscroll-behavior:contain;}
+.all-programs .programs-submenu .menu-item{width:100%;min-height:29px;white-space:normal;}
+.all-programs .programs-submenu .menu-item>span{min-width:0;overflow-wrap:anywhere;}
+@media(pointer:coarse){.all-programs .programs-submenu .menu-item{min-height:44px;}}
+/* The bitmap's green highlight is inset two rows below the blue taskbar rim.
+   Align that artwork while keeping the button and its hit area unchanged. */
+#start-button{background-position:left -2px;background-size:100% calc(100% + 2px);}

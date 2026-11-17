@@ -1,0 +1,29 @@
+// Site notices; third-party ownership is not reassigned by these notices.
+import {VERSION} from './version.js';
+export function renderLegalNotices(root,context){
+  const block=root.querySelector('[data-legal]');
+  const section=(heading,text)=>{const node=document.createElement('section'),title=document.createElement('h3'),body=document.createElement('p');title.textContent=heading;body.textContent=text;node.append(title,body);block.append(node);return node;};
+  section('Copyright','© 2026 Joshua Fuller. Rights in original personal text and original custom site material are reserved where applicable. Third-party content is excluded from this notice and retains its own ownership and licence terms.');
+  const trademarks=section('Windows XP tribute','Windows, Windows XP, Microsoft names, logos and related product marks belong to Microsoft Corporation. This personal website is an unofficial Windows XP-style tribute. It is not affiliated with, sponsored by or endorsed by Microsoft.');
+  const guidelines=document.createElement('a');guidelines.textContent='Microsoft brand guidelines';guidelines.href='https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks';guidelines.target='_blank';guidelines.rel='noopener noreferrer';trademarks.append(guidelines);
+  section('Third-party artwork','Microsoft-style interface artwork, wallpaper, other logos, photographs and third-party materials remain subject to their owners’ rights. This website does not grant a licence to reuse third-party files.');
+  const carNotice=section('McLaren artwork and trademarks','McLaren names, logos and racing marks remain the property of their respective McLaren rights holders. The car photograph, supplied by Joshua, remains copyrighted by its original rights holder; visible sponsor marks belong to their respective owners. Background removal does not transfer those rights. No McLaren or photographer licence has been verified or granted by this website. This is an unofficial personal website, not affiliated with, sponsored by or endorsed by McLaren or its sponsors.');
+  const carTerms=document.createElement('a');carTerms.textContent='McLaren Racing terms of use';carTerms.href='https://www.mclaren.com/racing/terms-of-use/';carTerms.target='_blank';carTerms.rel='noopener noreferrer';carNotice.append(carTerms);
+  const clue=document.createElement('p');clue.className='desktop-clue';clue.textContent='A different desktop is hidden inside a tropical fruit. The command line knows where to look.';carNotice.append(clue);
+  const racing=section('Racing artwork, trademarks and licensing','The F1 logo, FORMULA 1, F1 and related marks are trademarks of Formula One Licensing BV. The starting-gantry image and racing wallpaper were supplied by Joshua; their original artwork and photography remain subject to their respective owners’ copyright. No licence from Formula 1 or the artwork owners has been verified. Attribution and this notice do not grant permission to reproduce or redistribute those assets. McLaren names and marks, sponsor marks, driver names and Silverstone names remain with their respective rights holders. This personal website is unofficial and is not affiliated with, sponsored by or endorsed by Formula 1, the FIA, McLaren, Silverstone or the drivers.');
+  for(const [label,url] of [['Formula 1 trademark guidelines','https://www.formula1.com/en/information/guidelines.4EOKE9RRqevL4niTK9kWyt'],['Formula 1 legal notices','https://www.formula1.com/en/information/legal-notices.7egvZU48hzrypubGBNcQKt']]){const link=document.createElement('a');link.textContent=label;link.href=url;link.target='_blank';link.rel='noopener noreferrer';racing.append(document.createTextNode(' '),link);}
+  section('Decorative racing simulation','The circuit is an original approximate schematic. Driver movement, sector timing, personal bests and session results are browser-generated decoration, not live timing, telemetry or real race results. User-supplied lap, sector and corner-speed references guide the simulation; they are not presented as independently verified records. No outside racing-data service is queried.');
+  const racingBlock=document.createElement('div');
+  racingBlock.dataset.racingNotices='';
+  racingBlock.append(racing,racing.nextElementSibling);
+  section('Development assistance','Joshua Fuller created this personal desktop with assistance from ChatGPT. The development credit does not imply Microsoft or OpenAI sponsorship or a transfer of third-party rights.');
+  const insertionPoint=block.lastElementChild;
+  const updateRacingNotices=()=>{if(document.documentElement.dataset.raceTheme==='active')block.insertBefore(racingBlock,insertionPoint);else racingBlock.remove();};
+  const observer=new MutationObserver(updateRacingNotices);
+  observer.observe(document.documentElement,{attributes:true,attributeFilter:['data-race-theme']});updateRacingNotices();
+  section('Privacy and browser storage','Browser preferences and local drafts use local storage. JoshBot conversation history uses session storage for the current tab. JoshBot is a scripted local assistant, not an AI chat service. Cloudflare provides hosting and security; Cloudflare Web Analytics is present on the live site and technical request data may be processed by the hosting provider.');
+  section('External links and availability','External sites have their own terms and privacy policies. This personal portfolio is provided as-is; information and links may change. For rights, attribution or correction requests, please use Contact Me.');
+  const footer=document.createElement('p');footer.textContent='Site version '+VERSION;block.append(footer);
+  const contact=document.createElement('button');contact.className='xp-button';contact.textContent='Contact Me';contact.onclick=()=>context.open('contact');block.append(contact);
+  return()=>observer.disconnect();
+}
