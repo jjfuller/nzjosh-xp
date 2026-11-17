@@ -123,7 +123,7 @@ To personalize a private copy, populate `site/profile.json` with your own public
 
 ## Community and support
 
-Read the [contribution guidelines](CONTRIBUTING.md), [code of conduct](CODE_OF_CONDUCT.md), [security policy](SECURITY.md) and [support guide](SUPPORT.md) before opening an issue or pull request. Use the issue templates for bug reports and feature requests. Never attach private photographs, certificates, contact details, credentials or personal website exports.
+Read the [contribution guidelines](CONTRIBUTING.md), [code of conduct](CODE_OF_CONDUCT.md), [security policy](SECURITY.md), [accessibility statement](ACCESSIBILITY.md) and [support guide](SUPPORT.md) before opening an issue or pull request. Use the issue templates for bug reports and feature requests. Never attach private photographs, certificates, contact details, credentials or personal website exports.
 
 ## Copyright and permissions
 
