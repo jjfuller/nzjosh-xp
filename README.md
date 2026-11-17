@@ -1,5 +1,7 @@
 # NZJOSH XP
 
+**Website version: 2026.11.16.21** · Released November 16, 2026. This repository captures that website version; the live site may receive later updates. Version details are recorded in [`site/version.js`](site/version.js).
+
 An interactive Windows XP desktop in your browser. Explore Joshua Fuller's desktop, browse photos and certificates, chat with Josh Bot, and stay for a game.
 
 [**Explore the desktop**](https://nzjosh.com/)
