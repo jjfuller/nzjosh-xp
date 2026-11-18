@@ -12,25 +12,25 @@ import {EDITOR_MODE} from './mode.js';
 import {profile,saveProfile,escapeHTML as esc,safeURL,downloadFile} from './profile.js';
 import {minesweeper,calculator} from './recreation.js';
 import {paint} from './paint-fixed.js';
-import {achievements} from './achievements.js';
+import {achievements} from './certificates.js';
 export const catalog={
   timing:{title:'Race Timing',icon:'../race-timing-icon.svg',width:760,height:490,status:false},
-  about:{title:'About Me',icon:'about-person.svg',width:805,height:630},
-  resume:{title:'My Resume',icon:'7fc68bd5abd65729.webp',width:800,height:700},
-  achievements:{title:'Certificates & Awards',icon:'folder.svg',width:700,height:560},
-  nas:{title:'Fuller NAS',icon:'nas.svg'},
+  about:{title:'About Me',icon:'../xp-icons/about.webp',width:805,height:630},
+  resume:{title:'My Resume',icon:'../xp-icons/resume.webp',width:800,height:700},
+  achievements:{title:'Certificates & Awards',icon:'../xp-icons/folder.webp',width:700,height:560},
+  nas:{title:'Fuller NAS',icon:'../xp-icons/nas.webp'},
   web:{title:'Web Browser',icon:'display.svg',width:920,height:650,status:false},
   projects:{title:'My Projects',icon:'74baefe8470766de.webp',width:850,height:770},
-  contact:{title:'Contact Me',icon:'7eb6f19e4f159b1f.webp',width:545,height:400},
+  contact:{title:'Contact Me',icon:'../xp-icons/contact.webp',width:545,height:400},
   profile:{title:'My Profile',icon:'user.png',width:680,height:650},
   messenger:{title:'Conversation with JoshBot',icon:'4e5f4a17a66eea46.webp',width:560,height:560,status:false},
-  notepad:{title:'Untitled - Notepad',icon:'bbc6fff0f471ce55.webp',width:600,height:430,status:false},
+  notepad:{title:'Untitled - Notepad',icon:'../xp-icons/notepad.webp',width:600,height:430,status:false},
   cmd:{title:'Command Prompt',icon:'683327ed317d1f06.webp',width:660,height:390,status:false},
-  gallery:{title:'Image Viewer',icon:'7a25160013c98a4f.webp',width:820,height:650,status:false},
-  paint:{title:'Paint',icon:'paint.png',width:790,height:600,status:false},
+  gallery:{title:'Image Viewer',icon:'../xp-icons/pictures.webp',width:820,height:650,status:false},
+  paint:{title:'Paint',icon:'../xp-icons/paint.webp',width:790,height:600,status:false},
   minesweeper:{title:'Minesweeper',icon:'minesweeper.svg',width:300,height:390,status:false},
   calculator:{title:'Calculator',icon:'calculator.svg',width:300,height:340,status:false},
-  display:{title:'Display Properties',icon:'display.svg',width:450,height:470,status:false},
+  display:{title:'Display Properties',icon:'../xp-icons/display.webp',width:450,height:470,status:false},
   credits:{title:'About this desktop',icon:'windows-logo.svg',width:490,height:420,status:false}
 };
 const editButton=EDITOR_MODE?'<button class="xp-button small-edit" data-open="profile">Edit my details</button>':'';
@@ -65,7 +65,7 @@ function projects(root,context){
 }
 function contact(root){
   const ready=!!profile.email&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.email);
-  root.innerHTML=`<form class="contact-form"><div class="contact-toolbar"><button type="submit" ${ready?'':'disabled'}><img src="assets/7eb6f19e4f159b1f.webp" alt="">Send Message</button><button type="reset"><span>▤</span>New Message</button><i></i><span class="contact-tools">✂ &nbsp;▧ &nbsp;▤</span><i></i><button type="button" data-open="social:linkedin"><img src="assets/18bb588512d43a49.webp" alt="LinkedIn"></button></div><div class="contact-address"><label>To:<input readonly value="${esc(ready?(profile.name?profile.name+' <'+profile.email+'>':profile.email):'')}" placeholder="Recipient not configured" aria-label="To"></label><label>From:<input type="email" name="from" placeholder="Your email address" required></label><label>Subject:<input name="subject" placeholder="Subject of your message" required></label></div><textarea name="message" aria-label="Message" placeholder="Write your message here" required></textarea>${!ready?'<div class="contact-notice">Contact details have not been added yet.</div>':'<div class="contact-notice">Send opens your email app with this draft.</div>'}</form>`;
+  root.innerHTML=`<form class="contact-form"><div class="contact-toolbar"><button type="submit" ${ready?'':'disabled'}><img src="xp-icons/contact.webp" alt="">Send Message</button><button type="reset"><span>▤</span>New Message</button><i></i><span class="contact-tools">✂ &nbsp;▧ &nbsp;▤</span><i></i><button type="button" data-open="social:linkedin"><img src="assets/18bb588512d43a49.webp" alt="LinkedIn"></button></div><div class="contact-address"><label>To:<input readonly value="${esc(ready?(profile.name?profile.name+' <'+profile.email+'>':profile.email):'')}" placeholder="Recipient not configured" aria-label="To"></label><label>From:<input type="email" name="from" placeholder="Your email address" required></label><label>Subject:<input name="subject" placeholder="Subject of your message" required></label></div><textarea name="message" aria-label="Message" placeholder="Write your message here" required></textarea>${!ready?'<div class="contact-notice">Contact details have not been added yet.</div>':'<div class="contact-notice">Send opens your email app with this draft.</div>'}</form>`;
   root.querySelector('form').onsubmit=event=>{event.preventDefault();if(!ready)return;const data=new FormData(event.currentTarget);location.href=`mailto:${encodeURIComponent(profile.email)}?subject=${encodeURIComponent(data.get('subject'))}&body=${encodeURIComponent(data.get('message')+'\n\nFrom: '+data.get('from'))}`;};
 }
 function resumeBody(text){
