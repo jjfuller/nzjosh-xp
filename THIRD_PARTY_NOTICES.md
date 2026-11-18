@@ -17,3 +17,7 @@ additional context. Those files do not grant rights their authors do not hold.
 This is an unofficial personal project, not endorsed by or affiliated with
 Microsoft, McLaren, Formula 1, the FIA, Silverstone or OpenAI. The ChatGPT credit
 acknowledges development assistance, not sponsorship or ownership by OpenAI.
+
+## XP icon update
+
+`site/xp-icons/` contains selected icons supplied for the desktop interface, including Windows-style and Adobe PDF artwork. These assets are excluded from the MIT code license. No separate license file accompanied the supplied icon pack; inclusion does not establish permission to redistribute or reuse it. Microsoft, Adobe and other third-party marks remain with their respective owners.

@@ -1,6 +1,6 @@
 # NZJOSH XP
 
-**Website version: 2026.11.16.23** · Released November 16, 2026. This repository captures that website version with personal content removed; the live site may receive later updates. Version details are recorded in [`site/version.js`](site/version.js). Download the [latest public release](https://github.com/jjfuller/nzjosh-xp/releases/latest).
+**Website version: 2026.11.17.5** · Released November 17, 2026. This repository captures that website version with personal content removed; the live site may receive later updates. Version details are recorded in [`site/version.js`](site/version.js). Download the [latest public release](https://github.com/jjfuller/nzjosh-xp/releases/latest).
 
 An interactive Windows XP desktop in your browser. Explore Joshua Fuller's desktop, browse photos and certificates, chat with Josh Bot, and stay for a game.
 
@@ -8,15 +8,17 @@ An interactive Windows XP desktop in your browser. Explore Joshua Fuller's deskt
 
 Works on desktop and phone. Open the site, select Josh's login tile, and dig around.
 
-![NZJOSH XP desktop with Bliss wallpaper, desktop shortcuts and taskbar](docs/screenshots/xp-desktop.jpg)
+![Public NZJOSH XP template with updated desktop icons and taskbar](docs/screenshots/xp-desktop.jpg)
 
 ## On the desktop
 
 - **About Josh.** Read personal and professional biographies, view his résumé, or get in touch from the desktop.
 - **Pictures.** Explore photo albums in Image Viewer, with a rotating All pictures cover.
-- **Certificates & awards.** Browse certificates, awards, medals and completed courses.
+- **Certificates & awards.** Browse LinkedIn Certificates/Credentials, FEMA Certs, Google Certs and View All folders, alongside awards and courses. Personal records are excluded from the public template.
 - **Other programs.** Chat with Josh Bot in a Messenger-style window, play Minesweeper, draw in Paint, use Calculator, or write a note in Notepad.
 - **Desktop controls.** Move and resize windows, arrange shortcuts, select icons and explore the Start and tray menus.
+
+![Certificate folders in the blank public template](docs/screenshots/certificate-folders.jpg)
 
 ## The McLaren-inspired desktop
 

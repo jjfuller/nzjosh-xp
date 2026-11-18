@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026.11.17.5 — November 17, 2026
+
+- Sync reusable application code with the latest published website build.
+- Add LinkedIn, FEMA, Google and View All certificate folders with Explorer-style navigation.
+- Update matching XP app icons, including Contact Me, PDF and About Me.
+- Keep profile fields, certificate records, awards, courses, résumé files, personal account links and photo albums excluded.
+
+
 ## 2026.11.16.23 — November 16, 2026
 
 - Match the GitHub Start menu label to neighbouring labels in classic and racing
