@@ -31,9 +31,9 @@ The title-bar name and icon, taskbar label and icon, and accessible window-contr
 
 Mouse users click to select and double-click to open folders. Touch and pen users can open with one tap; keyboard navigation remains available. Switching from Pictures to certificates also clears photo-only restrictions so document downloads and printing retain their own behavior.
 
-![My Computer home with connected navigation and folders](docs/screenshots/my-computer-current.jpg)
+![My Computer home with connected navigation and folders](docs/screenshots/my-computer-landscape.jpg)
 
-![Certificates navigation reusing the Explorer window with its matching title and taskbar icon](docs/screenshots/certificate-folders-current.jpg)
+![Certificates navigation reusing the Explorer window with its matching title and taskbar icon](docs/screenshots/certificate-folders-landscape.jpg)
 
 [`desktop.js`](site/desktop.js) routes folder entry points through the `computer` app and synchronizes its title and icons on `explorer:location` events. [`my-computer.js`](site/my-computer.js) manages the shell and embedded views; [`explorer-path.js`](site/explorer-path.js) creates breadcrumbs, and [`gallery-explorer.js`](site/gallery-explorer.js) supplies Pictures.
 
