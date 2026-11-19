@@ -14,6 +14,13 @@ Use your own or separately licensed replacement assets when appropriate.
 See [asset credits](site/CREDITS.md) and [in-app notices](site/legal-notices.js) for
 additional context. Those files do not grant rights their authors do not hold.
 
+The software menu uses locally hosted vendor logos and favicons whose exact source
+URLs are recorded in `site/software-logos.js`. Microsoft product icons come from
+Microsoft's public CDN. The identified OpenAI and QuickBooks graphics come from
+Simple Icons 11.15.0 under CC0-1.0 for the graphic files; their trademark rights are
+not waived. Other vendor artwork is not represented as MIT licensed. View About
+this desktop for the per-product source and rights list.
+
 This is an unofficial personal project, not endorsed by or affiliated with
 Microsoft, McLaren, Formula 1, the FIA, Silverstone or OpenAI. The ChatGPT credit
 acknowledges development assistance, not sponsorship or ownership by OpenAI.

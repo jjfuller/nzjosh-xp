@@ -1,0 +1,9 @@
+/* Restrict only personal picture windows, not certificates or resume downloads. */
+:is(.program-gallery,.program-gallery3d,[data-personal-pictures]) img {
+  -webkit-user-drag:none;user-select:none;-webkit-user-select:none;
+  -webkit-touch-callout:none;
+}
+img[src^="software-logos/"] {object-fit:contain;background:#fff;border-radius:3px;box-sizing:border-box;padding:2px;}
+@media print {
+  .program-gallery,.program-gallery3d,[data-personal-pictures] {display:none!important;visibility:hidden!important;}
+}

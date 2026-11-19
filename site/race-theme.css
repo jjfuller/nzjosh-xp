@@ -87,3 +87,7 @@ html[data-race-theme="active"] ::selection {background:var(--race-primary);color
 @media(prefers-reduced-motion:reduce) {#race-start-lights {display:none;animation:none;}}
 
 #race-start-lights .race-light-column.lit i {background:#f7312f;box-shadow:0 0 10px #f7312f66;}
+
+/* Display Properties keeps its light XP panel in papaya mode. */
+html[data-race-theme="active"] .program-display .display-properties {color:var(--race-ink);color-scheme:light;}
+html[data-race-theme="active"] .program-display .display-properties .muted {color:#4b5563;}

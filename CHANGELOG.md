@@ -1,12 +1,36 @@
 # Changelog
 
+## 2026.11.18.4 — November 18, 2026
+
+- Refresh the public client from the latest Cloudflare deployment, keeping personal
+  data and uploads out of the package.
+- Include My Computer, connected Explorer views, breadcrumb navigation, refreshed
+  XP icons and the shared document viewer.
+- Include grouped certificate folders, touch/keyboard opening, and visible thumbnail
+  hover/focus states; leave personal credential records empty in the public copy.
+- Reset Papaya to Classic on refresh, new visits, page leave/return and tab leave.
+- Add scoped personal-photo drag/save/print deterrents with explicit limitations;
+  preserve certificate and resume document controls.
+- Include 14 locally hosted product logos, source links and rights notices.
+- Preserve Papaya Display Properties contrast fixes, racing features and local Josh Bot.
+- Expand the README and architecture guide, refresh interface screenshots and add
+  dependency-free public-source checks.
+- Remove superseded gallery, achievement, Messenger and CRT entry files after
+  checking the current entry-point import graph.
+
+## 2026.11.17.1–2026.11.18.3
+
+The live site received document, Explorer, certificate-navigation, icon and contrast
+updates between public source snapshots. Their technical release history is retained in
+`site/version.js`, with personal-record details omitted. The public 2026.11.17.5
+snapshot is listed below; other intermediate notes do not imply a GitHub release.
+
 ## 2026.11.17.5 — November 17, 2026
 
-- Sync reusable application code with the latest published website build.
-- Add LinkedIn, FEMA, Google and View All certificate folders with Explorer-style navigation.
-- Update matching XP app icons, including Contact Me, PDF and About Me.
-- Keep profile fields, certificate records, awards, courses, résumé files, personal account links and photo albums excluded.
-
+- Sync reusable application code with the published website build.
+- Add LinkedIn, FEMA, Google and View All folders with Explorer-style navigation.
+- Update matching XP app icons and their third-party provenance notices.
+- Keep personal records, resume files, account links and photo albums excluded.
 
 ## 2026.11.16.23 — November 16, 2026
 

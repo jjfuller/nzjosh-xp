@@ -27,7 +27,7 @@ export function completeStartMenu(){
     }
     const menu=start.querySelector('.programs-submenu');if(!menu)return;
     const racing=document.documentElement.dataset.raceTheme==='active';
-    const ids=[...new Set([...order,...Object.keys(catalog)])].filter(id=>catalog[id]&&!['media','projects','gallery3d','web'].includes(id)&&(racing||id!=='timing')&&(EDITOR_MODE||id!=='profile'));
+    const ids=[...new Set([...order,...Object.keys(catalog)])].filter(id=>catalog[id]&&!['media','projects','gallery3d','web','document'].includes(id)&&(racing||id!=='timing')&&(EDITOR_MODE||id!=='profile'));
     const signature=JSON.stringify(ids.map(id=>[id,labels[id]||catalog[id].title]));
     if(menu.dataset.completeSignature===signature)return;
     menu.dataset.completeSignature=signature;menu.setAttribute('role','menu');menu.setAttribute('aria-label','All Programs');

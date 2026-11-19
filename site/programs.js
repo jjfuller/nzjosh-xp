@@ -1,3 +1,8 @@
+import './computer-shortcut.js';
+import {setExplorerPath} from './explorer-path.js';
+import {renderDocument} from './document-viewer.js';
+import {computer} from './my-computer.js';
+import {refreshWindowIcons} from './xp-icon-refresh.js';
 import './desktop-performance.js';
 import {renderTiming} from './race-timing.js';
 import {handleAppearanceCommand} from './race-theme.js';
@@ -6,7 +11,7 @@ import('./start-menu-complete.js').then(module=>module.completeStartMenu()).catc
 import('./desktop-cleanup.js').then(module=>module.removeCRT()).catch(()=>{});
 import {renderLegalNotices} from './legal-notices.js';
 import {VERSION,RELEASE_DATE,RELEASE_NOTES,RELEASE_HISTORY} from './version.js';
-import {gallery} from './gallery.js';
+import {gallery} from './gallery-explorer.js';
 
 import {EDITOR_MODE} from './mode.js';
 import {profile,saveProfile,escapeHTML as esc,safeURL,downloadFile} from './profile.js';
@@ -14,10 +19,12 @@ import {minesweeper,calculator} from './recreation.js';
 import {paint} from './paint-fixed.js';
 import {achievements} from './certificates.js';
 export const catalog={
+  document:{title:'PDF Viewer',icon:'../xp-icons/resume.webp',width:800,height:700},
+  computer:{title:'My Computer',icon:'../xp-icons/computer.png',width:760,height:580},
   timing:{title:'Race Timing',icon:'../race-timing-icon.svg',width:760,height:490,status:false},
-  about:{title:'About Me',icon:'../xp-icons/about.webp',width:805,height:630},
+  about:{title:'About Me',icon:'../xp-icons/about.png',width:805,height:630},
   resume:{title:'My Resume',icon:'../xp-icons/resume.webp',width:800,height:700},
-  achievements:{title:'Certificates & Awards',icon:'../xp-icons/folder.webp',width:700,height:560},
+  achievements:{title:'Certificates & Awards',icon:'../xp-icons/certificates.png',width:700,height:560},
   nas:{title:'Fuller NAS',icon:'../xp-icons/nas.webp'},
   web:{title:'Web Browser',icon:'display.svg',width:920,height:650,status:false},
   projects:{title:'My Projects',icon:'74baefe8470766de.webp',width:850,height:770},
@@ -26,12 +33,12 @@ export const catalog={
   messenger:{title:'Conversation with JoshBot',icon:'4e5f4a17a66eea46.webp',width:560,height:560,status:false},
   notepad:{title:'Untitled - Notepad',icon:'../xp-icons/notepad.webp',width:600,height:430,status:false},
   cmd:{title:'Command Prompt',icon:'683327ed317d1f06.webp',width:660,height:390,status:false},
-  gallery:{title:'Image Viewer',icon:'../xp-icons/pictures.webp',width:820,height:650,status:false},
+  gallery:{title:'Pictures',icon:'../xp-icons/pictures.png',width:820,height:650,status:false},
   paint:{title:'Paint',icon:'../xp-icons/paint.webp',width:790,height:600,status:false},
   minesweeper:{title:'Minesweeper',icon:'minesweeper.svg',width:300,height:390,status:false},
   calculator:{title:'Calculator',icon:'calculator.svg',width:300,height:340,status:false},
   display:{title:'Display Properties',icon:'../xp-icons/display.webp',width:450,height:470,status:false},
-  credits:{title:'About this desktop',icon:'windows-logo.svg',width:490,height:420,status:false}
+  credits:{title:'About this desktop',icon:'../xp-icons/windows-flag.png',width:490,height:420,status:false}
 };
 const editButton=EDITOR_MODE?'<button class="xp-button small-edit" data-open="profile">Edit my details</button>':'';
 const blankLines='<div class="blank-lines"><i></i><i></i><i></i></div>';
@@ -88,7 +95,7 @@ function commandPrompt(root,context){
   root.innerHTML='<div class="command-prompt"><div class="terminal-output">Microsoft Windows XP [Version 5.1.2600]\nA browser desktop. Type HELP for commands.\n</div><form><label><span>C:\\Documents and Settings\\User&gt;</span><input aria-label="Command" autocomplete="off" spellcheck="false"></label></form></div>';
   const output=root.querySelector('.terminal-output');output.textContent='NZJOSH XP [Site version '+VERSION+']\nWindows XP-style browser desktop. Type HELP for commands.\n';const input=root.querySelector('input'),prompt=root.querySelector('label span');const history=[];let at=0;
   prompt.textContent='C:\\Documents and Settings\\'+(profile.name||'User')+'>';
-  root.querySelector('form').onsubmit=event=>{event.preventDefault();const raw=input.value.trim();if(!raw)return;const appearanceResponse=handleAppearanceCommand(raw);if(appearanceResponse!==null){input.value='';output.textContent+='\n'+appearanceResponse+'\n';root.querySelector('.command-prompt').scrollTop=1e7;return;}history.push(raw);at=history.length;input.value='';const [command,...rest]=raw.toLowerCase().split(/\s+/);let response='';switch(command){case'help':response='HELP    Display available commands\nVER / VERSION    Display site release version\nCHANGELOG    Display latest release notes\nRESUME    Open My Resume\nCONTACT   Open Contact Me\nPHOTOS    Open Image Viewer\nDIR     List desktop programs\nCLS     Clear screen\nDATE    Display date\nTIME    Display time\nWHOAMI  Display profile name\nABOUT   Open About Me\nSTART <program> Open a program\nECHO <text> Display text\nEXIT    Close Command Prompt';break;case'ver':case'version':response='NZJOSH XP\nSite version: '+VERSION+'\nRelease date: '+RELEASE_DATE+'\nEarlier deployments were unnumbered; CHANGELOG shows the latest release notes.\nType CHANGELOG for release notes.';break;case'changelog':response='NZJOSH XP '+VERSION+' ('+RELEASE_DATE+')\n'+RELEASE_NOTES.map(note=>' - '+note).join('\n');break;case'resume':case'contact':context.open(command);break;case'photos':case'projects':context.open('gallery');break;case'dir':response='Desktop\n'+Object.entries(catalog).filter(([id])=>(EDITOR_MODE||id!=='profile')&&!['projects','media','gallery3d'].includes(id)&&(id!=='timing'||document.documentElement.dataset.raceTheme==='active')).map(([id,app])=>id.padEnd(16)+app.title).join('\n');break;case'cls':output.textContent='';return;case'date':response=new Date().toLocaleDateString();break;case'time':response=new Date().toLocaleTimeString();break;case'whoami':response=profile.name||'Profile name is blank.';break;case'echo':response=raw.slice(5);break;case'about':context.open(command);break;case'profile':if(EDITOR_MODE)context.open(command);else response='Command not available.';break;case'start':if(rest[0]==='projects')context.open('gallery');else if(catalog[rest[0]]&&(EDITOR_MODE||rest[0]!=='profile')&&(rest[0]!=='timing'||document.documentElement.dataset.raceTheme==='active'))context.open(rest[0]);else response='Program not found. Type DIR for a list.';break;case'exit':context.close();return;case'':break;default:response="'"+raw+"' is not recognized. Type HELP for commands.";}
+  root.querySelector('form').onsubmit=event=>{event.preventDefault();const raw=input.value.trim();if(!raw)return;const appearanceResponse=handleAppearanceCommand(raw);if(appearanceResponse!==null){input.value='';output.textContent+='\n'+appearanceResponse+'\n';root.querySelector('.command-prompt').scrollTop=1e7;return;}history.push(raw);at=history.length;input.value='';const [command,...rest]=raw.toLowerCase().split(/\s+/);let response='';switch(command){case'help':response='HELP    Display available commands\nVER / VERSION    Display site release version\nCHANGELOG    Display latest release notes\nRESUME    Open My Resume\nCONTACT   Open Contact Me\nPHOTOS    Open Pictures\nDIR     List desktop programs\nCLS     Clear screen\nDATE    Display date\nTIME    Display time\nWHOAMI  Display profile name\nABOUT   Open About Me\nSTART <program> Open a program\nECHO <text> Display text\nEXIT    Close Command Prompt';break;case'ver':case'version':response='NZJOSH XP\nSite version: '+VERSION+'\nRelease date: '+RELEASE_DATE+'\nEarlier deployments were unnumbered; CHANGELOG shows the latest release notes.\nType CHANGELOG for release notes.';break;case'changelog':response='NZJOSH XP '+VERSION+' ('+RELEASE_DATE+')\n'+RELEASE_NOTES.map(note=>' - '+note).join('\n');break;case'resume':case'contact':context.open(command);break;case'photos':case'projects':context.open('gallery');break;case'dir':response='Desktop\n'+Object.entries(catalog).filter(([id])=>(EDITOR_MODE||id!=='profile')&&!['projects','media','gallery3d'].includes(id)&&(id!=='timing'||document.documentElement.dataset.raceTheme==='active')).map(([id,app])=>id.padEnd(16)+app.title).join('\n');break;case'cls':output.textContent='';return;case'date':response=new Date().toLocaleDateString();break;case'time':response=new Date().toLocaleTimeString();break;case'whoami':response=profile.name||'Profile name is blank.';break;case'echo':response=raw.slice(5);break;case'about':context.open(command);break;case'profile':if(EDITOR_MODE)context.open(command);else response='Command not available.';break;case'start':if(rest[0]==='projects')context.open('gallery');else if(catalog[rest[0]]&&(EDITOR_MODE||rest[0]!=='profile')&&(rest[0]!=='timing'||document.documentElement.dataset.raceTheme==='active'))context.open(rest[0]);else response='Program not found. Type DIR for a list.';break;case'exit':context.close();return;case'':break;default:response="'"+raw+"' is not recognized. Type HELP for commands.";}
     output.textContent+='\n'+prompt.textContent+raw+'\n'+response+'\n';root.querySelector('.command-prompt').scrollTop=1e7;
   };input.onkeydown=event=>{if(event.key==='ArrowUp'){event.preventDefault();at=Math.max(0,at-1);input.value=history[at]||'';}if(event.key==='ArrowDown'){event.preventDefault();at=Math.min(history.length,at+1);input.value=history[at]||'';}};root.onclick=()=>input.focus();input.focus();
 }
@@ -96,12 +103,15 @@ function iframe(root,url,title){root.innerHTML=`<iframe class="program-frame" sr
 function display(root){root.innerHTML=`<div class="display-properties"><nav> <span>Themes</span><b>Desktop</b><span>Screen Saver</span><span>Appearance</span></nav><div class="monitor-preview"><div style="background-image:url(${JSON.stringify(profile.wallpaper)})"><span>▧</span></div><i></i></div><form><label>Background:<select class="xp-input" name="wallpaper"><option value="assets/bliss.jpg">Bliss</option>${EDITOR_MODE?'<option value="custom">Custom (use My Profile)</option>':''}</select></label><label class="editor-check"><input type="checkbox" name="startupSound" ${profile.startupSound?'checked':''}> Startup sound</label><p class="muted">${EDITOR_MODE?'Personal pictures and colors can be set in My Profile.':'Changes apply to this browser.'}</p><footer>${EDITOR_MODE?'<button class="xp-button" type="button" data-open="profile">My Profile…</button>':''}<button class="xp-button" type="submit">Apply</button></footer><span role="status"></span></form></div>`;root.querySelector('form').onsubmit=e=>{e.preventDefault();saveProfile({...profile,wallpaper:e.currentTarget.wallpaper.value==='assets/bliss.jpg'?'assets/bliss.jpg':profile.wallpaper,crt:false,startupSound:e.currentTarget.startupSound.checked});};}
 export function renderProgram(id,root,context){
   root.className='window-content program-'+id;
+  refreshWindowIcons(context.window);
   if(id==='timing')return renderTiming(root);
-    else if(id==='about')about(root);
+    else if(id==='computer')return computer(root,context,profile);
+    else if(id==='about'){about(root);context.window.querySelectorAll(':scope > .window-toolbar,:scope > .addressbar').forEach(n=>n.remove());}
   else if(id==='projects')projects(root,context);
   else if(id==='contact')contact(root);
-  else if(id==='resume')resume(root);
-  else if(id==='achievements')achievements(root);
+  else if(id==='resume')renderDocument(root,{title:'Resume',src:profile.publicResumeUrl||profile.resumeUrl,pages:profile.resumePages,download:profile.resumeUrl,path:[['Computer','computer'],['Desktop','desktop'],['Resume','resume']]});
+  else if(id==='document')renderDocument(root,null);
+  else if(id==='achievements')return achievements(root);
   else if(id==='notepad')notepad(root);
   else if(id==='cmd')commandPrompt(root,context);
   else if(id==='gallery'||id==='gallery3d')return gallery(root,context,id==='gallery3d');
@@ -112,7 +122,7 @@ export function renderProgram(id,root,context){
   else if(id==='minesweeper')return minesweeper(root);
   else if(id==='display')display(root);
   else if(id==='credits'){
-    root.innerHTML='<div class="credits"><div><img src="assets/windows-logo.svg" alt=""><h1>NZJOSH.com</h1></div><h2>Joshua Fuller &amp; ChatGPT</h2><p>Design adaptation, development, and personal desktop implementation.</p><hr><p>A personal space built for the web.</p><section data-legal></section></div>';
+    root.innerHTML='<div class="credits"><div><img src="xp-icons/windows-flag.png" alt=""><h1>NZJOSH.com</h1></div><h2>Joshua Fuller &amp; ChatGPT</h2><p>Design adaptation, development, and personal desktop implementation.</p><hr><p>A personal space built for the web.</p><section data-legal></section></div>';
     return renderLegalNotices(root,context);
   }
 }

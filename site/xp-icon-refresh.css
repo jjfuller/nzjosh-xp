@@ -1,0 +1,10 @@
+.window-toolbar .nav-circle[data-xp-navigation]{background:none;border-radius:0;box-shadow:none;transform:none!important;filter:none!important}
+.window-toolbar .nav-circle[data-xp-navigation] img{display:block;width:24px;height:24px;box-shadow:none}
+.window-toolbar button img{box-shadow:none;filter:none;transition:filter 100ms ease}
+.window-toolbar button:not(:disabled):hover img{filter:saturate(1.15)}
+.window-toolbar button:disabled img{filter:grayscale(1);opacity:.55}
+@media(prefers-reduced-motion:reduce){.window-toolbar button img{transition:none}}
+
+.window-toolbar button:disabled,.window-toolbar button:disabled:hover,.window-toolbar button:disabled:active{background:transparent;border-color:transparent;box-shadow:none;filter:none;transition:none}
+.window-toolbar button:disabled img,.window-toolbar button:disabled:hover img{filter:grayscale(1);opacity:.55;transition:none}
+.window-toolbar .nav-circle[data-xp-navigation]{display:inline-flex;align-items:center;justify-content:center;padding:0;flex-shrink:0}

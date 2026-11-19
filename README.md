@@ -1,6 +1,6 @@
 # NZJOSH XP
 
-**Website version: 2026.11.17.5** · Released November 17, 2026. This repository captures that website version with personal content removed; the live site may receive later updates. Version details are recorded in [`site/version.js`](site/version.js). Download the [latest public release](https://github.com/jjfuller/nzjosh-xp/releases/latest).
+**Website version: 2026.11.18.4** · Updated November 18, 2026. This public source snapshot follows the current live interface, with personal data removed. See the [latest release](https://github.com/jjfuller/nzjosh-xp/releases/latest), [changelog](CHANGELOG.md) and [code walkthrough](docs/architecture.md).
 
 An interactive Windows XP desktop in your browser. Explore Joshua Fuller's desktop, browse photos and certificates, chat with Josh Bot, and stay for a game.
 
@@ -8,23 +8,62 @@ An interactive Windows XP desktop in your browser. Explore Joshua Fuller's deskt
 
 Works on desktop and phone. Open the site, select Josh's login tile, and dig around.
 
-![Public NZJOSH XP template with updated desktop icons and taskbar](docs/screenshots/xp-desktop.jpg)
+![NZJOSH XP desktop with Bliss wallpaper, desktop shortcuts and taskbar](docs/screenshots/classic-2026-11-18.jpg)
 
 ## On the desktop
 
 - **About Josh.** Read personal and professional biographies, view his résumé, or get in touch from the desktop.
-- **Pictures.** Explore photo albums in Image Viewer, with a rotating All pictures cover.
-- **Certificates & awards.** Browse LinkedIn Certificates/Credentials, FEMA Certs, Google Certs and View All folders, alongside awards and courses. Personal records are excluded from the public template.
+- **My Computer.** Explore connected folders, follow address-bar breadcrumbs, and open Pictures or Certificates without losing the desktop metaphor.
+- **Pictures.** Explore albums in an Explorer-style window, with a rotating All pictures cover, thumbnail navigation, zoom, fit and rotation controls.
+- **Certificates & awards.** Browse grouped credentials, awards and courses. Certificate thumbnails open an in-site document viewer with document download and print controls.
 - **Other programs.** Chat with Josh Bot in a Messenger-style window, play Minesweeper, draw in Paint, use Calculator, or write a note in Notepad.
 - **Desktop controls.** Move and resize windows, arrange shortcuts, select icons and explore the Start and tray menus.
 
-![Certificate folders in the blank public template](docs/screenshots/certificate-folders.jpg)
+## What's new in this snapshot
+
+The November 18 refresh brings the newer Explorer and document components into the public project, alongside the latest desktop behaviour. The live site remains a personal portfolio; this repository is a reusable, blank-content version of its interface.
+
+### My Computer and connected Explorer windows
+
+My Computer is now a desktop entry point for Pictures, Certificates & Awards and other locations. Connected toolbars, File/View/Help menus and address breadcrumbs provide routes between them. Folder interactions select with a mouse click and open with a double-click; touch and pen interactions can open with one tap, and keyboard controls remain available.
+
+![Current My Computer window with connected navigation and folders](docs/screenshots/my-computer-current.jpg)
+
+[`my-computer.js`](site/my-computer.js) manages the folder shell and embedded views. [`explorer-path.js`](site/explorer-path.js) creates navigable breadcrumbs, while [`xp-icon-refresh.js`](site/xp-icon-refresh.js) keeps the current XP-style icons and navigation artwork consistent. The Pictures implementation lives in [`gallery-explorer.js`](site/gallery-explorer.js).
+
+### Certificates and the document viewer
+
+Credentials are grouped into LinkedIn, FEMA, Google, View All, Awards & Medals and Courses folders. Hover and keyboard-focus outlines make certificate thumbnails visibly interactive. The shared [`document-viewer.js`](site/document-viewer.js) supports image-based documents and PDFs, with navigation, zoom, download and print controls appropriate to documents.
+
+![Certificate folder navigation in the current Explorer interface](docs/screenshots/certificate-folders-current.jpg)
+
+The published [`certificates.js`](site/certificates.js) preserves this interface and event handling, but its personal certificate, award and course records are empty. The public package contains no certificate scans, credential IDs, resume documents or personal account links. Add only your own approved records and assets in a private copy.
+
+### Classic first, Papaya for the current visit
+
+Every fresh page visit and refresh starts in Classic. Leaving and returning, including back/forward restoration or switching away from the tab, also resets the appearance. Enter `papaya` in Command Prompt to activate the racing experience during the current visit, or `classic` to switch back. The previous persisted Papaya preference is removed.
+
+This behaviour is handled in [`race-theme.js`](site/race-theme.js) using page and visibility events. Other preferences, such as the race-car toggle, have their own independent settings.
+
+### Personal pictures: viewing deterrents, with clear limits
+
+Personal picture windows disable image dragging, suppress image right-click saving and mobile touch callouts where supported, intercept save/print shortcuts in the photo window, and hide those windows in print styles. The protection is scoped to personal photos, so resume and certificate document downloads remain available.
+
+[`picture-protection.js`](site/picture-protection.js) supplies the event handling; [`picture-protection.css`](site/picture-protection.css) supplies the drag, selection and print rules. **These are deterrents, not access control or DRM.** A browser must receive a photo to display it, so screenshots, developer tools, direct image requests and determined copying cannot reliably be prevented. The public template contains no personal albums.
+
+### Product logos and clearer credits
+
+The Start menu's Recently Used list shows software Joshua has used; it is not a visitor-activity tracker. Its 14 product entries now use locally hosted logos instead of generic letter tiles. [`software-logos.js`](site/software-logos.js) maps names to assets and records their sources. About this desktop lists the source links and rights notices.
+
+![Recently Used menu with product identification logos](docs/screenshots/software-menu-current.jpg)
+
+Vendor artwork retains its owners' rights. The identified Simple Icons graphics have CC0-1.0 provenance, while trademark rights remain with their owners. The project's MIT License does not relicense third-party artwork; see [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## The McLaren-inspired desktop
 
 A second appearance brings a little papaya to the desktop: orange highlights, charcoal panels, racing wallpaper and a matching taskbar.
 
-![NZJOSH McLaren-inspired papaya and charcoal desktop design](docs/screenshots/mclaren-theme.jpg)
+![NZJOSH McLaren-inspired papaya and charcoal desktop design](docs/screenshots/papaya-2026-11-18.jpg)
 
 The racing experience includes a five-light start sequence, an approximate Silverstone circuit simulation, a sector-timing display, and an animated taskbar car with a tray toggle. The circuit and timing are decorative simulations, not live race data. Motion settings and visibility handling help keep the experience comfortable.
 
@@ -41,7 +80,7 @@ html[data-race-theme="active"] {
 }
 ```
 
-Try the alternate appearance by entering `papaya` in Command Prompt. A five-light start sequence switches the desktop; enter `classic` to return to XP. The theme remembers its setting locally and respects reduced-motion preferences. These commands are handled by the included appearance controller rather than a separate framework.
+Try the alternate appearance by entering `papaya` in Command Prompt. A five-light start sequence switches the desktop; enter `classic` to return to XP. The theme resets to Classic when the visit ends or the page refreshes, and respects reduced-motion preferences. These commands are handled by the included appearance controller rather than a separate framework.
 
 ### A McLaren across the taskbar
 
@@ -55,7 +94,7 @@ The wheels move independently of the body. Circular SVG clips isolate the front 
 
 These screenshots freeze the animation; open the live desktop to see the wheels turn. The implementation lives in [`desktop-racer.js`](site/desktop-racer.js) and [`desktop-racer.css`](site/desktop-racer.css), without an animation library.
 
-- **Timing:** random 20–45 second gaps in classic XP and 8–16 second gaps in the racing theme. Normal desktop passes last about 2.2–2.9 seconds; screens narrower than 600 px use one-second passes.
+- **Timing:** random 20–45 second gaps in Classic XP and 8–16 second gaps in the racing theme. Pass duration is now derived from travel distance and a target speed of roughly 750 screen pixels per second, with slight variation and a 0.9–2.8 second clamp. Car width adapts between 124 and 164 px, and resizing preserves an active pass's position.
 - **Controls:** the papaya tray icon turns the car on or off and remembers that choice locally.
 - **Motion and visibility:** animation pauses when the tab is hidden. Reduced-motion preferences disable it by default; explicitly enabling it uses a slower, simplified pass.
 
@@ -85,6 +124,8 @@ See [`race-theme.js`](site/race-theme.js) for the sequence and theme controller,
 ![Josh Bot cartoon avatar](docs/screenshots/joshbot.png)
 
 Josh Bot brings a Messenger-style helper to the XP desktop. The cartoon avatar is a character image; the chatbot itself uses plain JavaScript and prepared answers. **No language model, AI API, API key or server-side inference is involved.** ChatGPT helped develop the project, but does not power visitors' conversations.
+
+![Current Messenger-style Josh Bot window with a prepared desktop-help reply](docs/screenshots/joshbot-window-current.jpg)
 
 ### How a reply is chosen
 
@@ -137,13 +178,16 @@ npm start
 
 Then open **http://127.0.0.1:4173/**. Serve the files over HTTP rather than opening index.html directly.
 
+Run `npm run check` before publishing a modified public copy. It checks JavaScript syntax, local module references and the blank-profile boundary; it is not a complete security or accessibility audit.
+
 ```text
 site/                Website client source and public assets
 scripts/serve.mjs    Local preview server
 docs/screenshots/   Screenshots from nzjosh.com
+docs/architecture.md  Module map and implementation walkthrough
 ```
 
-For static hosting, publish the `site/` directory. Production uses Cloudflare Workers with Static Assets. Account credentials, deployment tokens and private editor tools are not included. `site/_headers` contains the public response-header rules for compatible hosts.
+For static hosting, publish the `site/` directory. Production uses Cloudflare Workers with Static Assets. Its deployment adapter contains personal content and is deliberately excluded; the public client can run as static files. Account credentials, deployment tokens and private editor tools are not included. `site/_headers` contains response-header rules for compatible static hosts.
 
 ## About this repository
 

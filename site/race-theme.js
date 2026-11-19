@@ -26,10 +26,15 @@ function setAppearance(active) {
   if (active) document.documentElement.dataset.raceTheme = 'active';
   else delete document.documentElement.dataset.raceTheme;
   if(!active){cancelCountdown();document.querySelector('.app-window[data-app="timing"] [data-action="close"]')?.click();}
-  try { if (active) localStorage.setItem(STORAGE_KEY,'pit-wall'); else localStorage.removeItem(STORAGE_KEY); } catch {}
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
   circuit?.refresh();
 }
-try { if (localStorage.getItem(STORAGE_KEY) === 'pit-wall') document.documentElement.dataset.raceTheme = 'active'; } catch {}
+// Every page visit starts in Classic, including refresh and back/forward cache.
+try { localStorage.removeItem(STORAGE_KEY); } catch {}
+delete document.documentElement.dataset.raceTheme;
+addEventListener('pagehide',()=>setAppearance(false));
+addEventListener('pageshow',()=>setAppearance(false));
+document.addEventListener('visibilitychange',()=>{if(document.hidden)setAppearance(false);});
 function mount() {
   const desktop=document.getElementById('desktop');
   if(!desktop)return;

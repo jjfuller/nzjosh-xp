@@ -1,6 +1,11 @@
 // Local decorative racer. Distances are in screen pixels, durations in milliseconds.
-export const RACER_SETTINGS={minDelayMs:20000,maxDelayMs:45000,raceMinDelayMs:8000,raceMaxDelayMs:16000,mobilePassMs:1000,minPassMs:2200,maxPassMs:2900,slowPassMs:7000};
+export const RACER_SETTINGS={minDelayMs:20000,maxDelayMs:45000,raceMinDelayMs:8000,raceMaxDelayMs:16000,targetPixelsPerSecond:750,minFastPassMs:900,maxFastPassMs:2800,slowPassMs:7000};
 export function delayBounds(settings,racing){return racing?[settings.raceMinDelayMs??8000,settings.raceMaxDelayMs??16000]:[settings.minDelayMs,settings.maxDelayMs];}
+export function carWidthForViewport(width){return Math.max(124,Math.min(164,width*.18));}
+export function passDuration(viewportWidth,carWidth,settings=RACER_SETTINGS,speedFactor=1){
+  const ms=(viewportWidth+carWidth)/(settings.targetPixelsPerSecond*speedFactor)*1000;
+  return Math.max(settings.minFastPassMs,Math.min(settings.maxFastPassMs,ms));
+}
 export function distanceProgress(t){
   t=Math.max(0,Math.min(1,t));const a=.18,b=.86,c=.14,integral=x=>x*x*x-.5*x*x*x*x;
   const distance=t<a?.25*t+.75*a*integral(t/a):t<b?.625*a+t-a:.625*a+b-a+c*((t-b)/c-.25*integral((t-b)/c));
@@ -17,14 +22,24 @@ export function installDesktopRacer(settings=RACER_SETTINGS){
   let enabled=choice==='on'||(choice!=='off'&&!motion.matches),timer=0,frame=0,deadline=0,remaining=null,run=null,nextDirection=1,runner=null,ground=30,carWidth=164,lastAvailability=false,photoRequested=false,lastTheme=null;
   const button=document.createElement('button');button.id='desktop-racer-toggle';button.type='button';button.innerHTML=trayIcon;tray.insertBefore(button,tray.querySelector('time'));
   const layer=document.createElement('div');layer.id='desktop-racer-layer';layer.setAttribute('aria-hidden','true');desktop.append(layer);
-  function measure(){ground=innerHeight-bar.getBoundingClientRect().top;carWidth=innerWidth<600?124:164;if(runner){runner.style.bottom=ground+'px';runner.style.width=carWidth+'px';runner.style.height=carWidth*159/614+'px';}}
+  function measure(){
+    ground=innerHeight-bar.getBoundingClientRect().top;carWidth=carWidthForViewport(innerWidth);
+    if(runner){runner.style.bottom=ground+'px';runner.style.width=carWidth+'px';runner.style.height=carWidth*159/614+'px';}
+    if(run&&run.viewportWidth!==innerWidth){
+      const remainingDistance=Math.max(0,run.direction===1?innerWidth-run.x:run.x+carWidth);
+      const fullDistance=innerWidth+carWidth;
+      const fullDuration=run.slow?settings.slowPassMs:passDuration(innerWidth,carWidth,settings,run.speedFactor);
+      run.startX=run.x;run.travelDistance=remainingDistance;run.duration=Math.max(1,fullDuration*remainingDistance/fullDistance);
+      run.elapsed=0;run.last=0;run.lastDistance=0;run.viewportWidth=innerWidth;
+    }
+  }
   function desktopVisible(){return !desktop.classList.contains('hidden');}
   function allowed(){return enabled&&desktopVisible()&&!document.hidden;}
   function updateButton(){const label='Race car: '+(enabled?'on':'off');button.title=label;button.setAttribute('aria-label',label);button.setAttribute('aria-pressed',String(enabled));button.classList.toggle('available',desktopVisible());button.tabIndex=desktopVisible()?0:-1;}
   function stop(clearRun=true){clearTimeout(timer);cancelAnimationFrame(frame);timer=frame=0;if(clearRun){run=null;runner?.remove();runner=null;remaining=null;layer.dataset.phase='idle';}else if(run)run.last=0;}
   function schedule(){if(!allowed()||timer||frame||run)return;if(!photoRequested){photoRequested=true;const image=new Image();image.src=new URL('./racer-car-transparent.png',import.meta.url).href;}const [min,max]=delayBounds(settings,document.documentElement.dataset.raceTheme==='active');const delay=remaining??(min+Math.random()*(max-min));remaining=null;deadline=performance.now()+delay;layer.dataset.phase='waiting';timer=setTimeout(()=>{timer=0;startRun();},delay);}
-  function startRun(){if(!allowed())return;measure();runner=document.createElement('div');runner.className='desktop-racer';runner.innerHTML='<div class="racer-facing">'+car+'</div>';layer.append(runner);measure();const direction=nextDirection;nextDirection*=-1;runner.querySelector('.racer-facing').style.transform=direction===1?'none':'scaleX(-1)';run={direction,elapsed:0,last:0,lastDistance:0,duration:motion.matches?settings.slowPassMs:innerWidth<600?(settings.mobilePassMs??1000):settings.minPassMs+Math.random()*(settings.maxPassMs-settings.minPassMs),slow:motion.matches,wheels:[...runner.querySelectorAll('.racer-wheel-spin')],spokes:[...runner.querySelectorAll('.racer-spokes')],discs:[...runner.querySelectorAll('.racer-wheel-blur')],body:runner.querySelector('.racer-body'),trail:runner.querySelector('.racer-trail')};layer.dataset.phase='running';draw(0);frame=requestAnimationFrame(tick);}
-  function draw(delta){const t=Math.min(1,run.elapsed/run.duration),distance=(innerWidth+carWidth)*distanceProgress(t),radius=43*carWidth/614,angle=distance/radius*180/Math.PI,rotationStep=Math.abs(distance-run.lastDistance)/radius*180/Math.PI,x=run.direction===1?-carWidth+distance:innerWidth-distance;
+  function startRun(){if(!allowed())return;measure();runner=document.createElement('div');runner.className='desktop-racer';runner.innerHTML='<div class="racer-facing">'+car+'</div>';layer.append(runner);measure();const direction=nextDirection;nextDirection*=-1;runner.querySelector('.racer-facing').style.transform=direction===1?'none':'scaleX(-1)';const speedFactor=.94+Math.random()*.12;run={direction,speedFactor,viewportWidth:innerWidth,startX:direction===1?-carWidth:innerWidth,x:direction===1?-carWidth:innerWidth,travelDistance:innerWidth+carWidth,angle:0,elapsed:0,last:0,lastDistance:0,duration:motion.matches?settings.slowPassMs:passDuration(innerWidth,carWidth,settings,speedFactor),slow:motion.matches,wheels:[...runner.querySelectorAll('.racer-wheel-spin')],spokes:[...runner.querySelectorAll('.racer-spokes')],discs:[...runner.querySelectorAll('.racer-wheel-blur')],body:runner.querySelector('.racer-body'),trail:runner.querySelector('.racer-trail')};layer.dataset.phase='running';draw(0);frame=requestAnimationFrame(tick);}
+  function draw(delta){const t=Math.min(1,run.elapsed/run.duration),distance=run.travelDistance*distanceProgress(t),radius=43*carWidth/614,rotationStep=Math.abs(distance-run.lastDistance)/radius*180/Math.PI,angle=run.angle+rotationStep,x=run.startX+run.direction*distance;run.angle=angle;run.x=x;
     runner.style.transform=`translateX(${x}px)`;for(const w of run.wheels)w.style.transform=`rotate(${angle}deg)`;const blurred=!run.slow&&delta>0&&rotationStep>45;run.spokes.forEach(s=>s.style.opacity=blurred?'0':'1');run.discs.forEach(s=>s.style.opacity=blurred?'.75':'0');run.body.style.transform=run.slow?'none':`translateY(${Math.sin(distance/13)*.35}px)`;run.trail.style.opacity=run.slow?'0':String(.10+.09*Math.sin(Math.PI*t));run.trail.style.transform=`scaleX(${.7+.3*Math.sin(Math.PI*t)})`;run.lastDistance=distance;
   }
   function tick(now){frame=0;if(!allowed()||!run)return;const delta=run.last?now-run.last:0;run.last=now;run.elapsed+=delta;draw(delta);if(run.elapsed>=run.duration){runner.remove();runner=null;run=null;layer.dataset.phase='idle';schedule();}else frame=requestAnimationFrame(tick);}

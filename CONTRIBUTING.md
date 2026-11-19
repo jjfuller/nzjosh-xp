@@ -10,7 +10,7 @@ discretion; there is no guaranteed response time or deployment commitment.
 2. Use Node.js 22 or newer and run `npm start` for a local preview.
 3. Keep changes focused and preserve XP and McLaren appearance, keyboard access,
    mobile interactions, external-link confirmation and reduced-motion behaviour.
-4. Check affected JavaScript with `node --check site/<changed-file>.js`.
+4. Run `npm run check` for syntax, local imports and the public-content boundary.
 5. Verify the affected interaction in relevant desktop and touch layouts. Include
    browser/device details and screenshots without personal information.
 6. Use the pull request template to explain the problem, change and validation.
