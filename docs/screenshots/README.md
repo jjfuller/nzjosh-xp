@@ -1,7 +1,9 @@
 # Screenshot notes
 
-The Classic desktop, My Computer, certificate folders, Papaya desktop, Josh Bot window and software-menu detail were recaptured from the live NZJOSH.com build on November 18, 2026 (version 2026.11.18.9).
+Reviewed November 18, 2026, against live version 2026.11.18.9.
 
-Each capture followed a three-second settling period without mouse input or window movement. The desktop captures use a taller layout to keep the lower shortcuts separate; the previous short viewport clamped multiple icons near the bottom, which appeared as ghosting. Captures exclude the tray portrait and personal-content windows. The Josh Bot cartoon is the approved documentation illustration.
+The Classic and Papaya overview images show the full current browser viewport, including all screen edges and the taskbar. They are uncropped. Each followed a three-second settling period without mouse input or window movement. Folder and software-menu images are focused interface illustrations; no personal-content windows are shown.
 
-The close-up car/wheel and starting-light images remain earlier feature illustrations. They are retained to explain motion and countdown stages, rather than presented as current full-desktop screenshots. No personal photo albums, resume documents or certificate scans are included.
+The taskbar-car illustration is deliberately cropped to the bottom quarter to make the animated car easier to see. The car/wheel and starting-light images are earlier feature illustrations. The separate chat-window screenshot was removed at the owner's request; the approved Josh Bot cartoon remains.
+
+The former lower-left ghosting came from overlapping desktop shortcuts at a short viewport height. Current overview captures use the site's taller live viewport. No personal albums, resume documents or certificate scans are included.

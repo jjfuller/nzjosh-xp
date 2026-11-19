@@ -37,15 +37,9 @@ Mouse users click to select and double-click to open folders. Touch and pen user
 
 [`desktop.js`](site/desktop.js) routes folder entry points through the `computer` app and synchronizes its title and icons on `explorer:location` events. [`my-computer.js`](site/my-computer.js) manages the shell and embedded views; [`explorer-path.js`](site/explorer-path.js) creates breadcrumbs, and [`gallery-explorer.js`](site/gallery-explorer.js) supplies Pictures.
 
-### External links and Fuller NAS
-
-The live Fuller NAS shortcut asks for confirmation before opening UGREEN in a separate browser tab. Embedding was tested and rejected because the UGREEN app failed when accessing its cross-origin parent. The public template retains the shortcut but contains no NAS account URL, credentials or personal server configuration. Other external links keep their confirmation flow.
-
 ### Certificates and the document viewer
 
 Credentials are grouped into LinkedIn, FEMA, Google, View All, Awards & Medals and Courses folders. Hover and keyboard-focus outlines make certificate thumbnails visibly interactive. The shared [`document-viewer.js`](site/document-viewer.js) supports image-based documents and PDFs, with navigation, zoom, download and print controls appropriate to documents.
-
-![Certificate folder navigation in the current Explorer interface](docs/screenshots/certificate-folders-current.jpg)
 
 The published [`certificates.js`](site/certificates.js) preserves this interface and event handling, but its personal certificate, award and course records are empty. The public package contains no certificate scans, credential IDs, resume documents or personal account links. Add only your own approved records and assets in a private copy.
 
@@ -135,7 +129,6 @@ See [`race-theme.js`](site/race-theme.js) for the sequence and theme controller,
 
 Josh Bot brings a Messenger-style helper to the XP desktop. The cartoon avatar is a character image; the chatbot itself uses plain JavaScript and prepared answers. **No language model, AI API, API key or server-side inference is involved.** ChatGPT helped develop the project, but does not power visitors' conversations.
 
-![Current Messenger-style Josh Bot window with a prepared desktop-help reply](docs/screenshots/joshbot-window-current.jpg)
 
 ### How a reply is chosen
 
@@ -183,10 +176,12 @@ This project uses plain HTML, CSS and JavaScript ES modules. No UI framework, AP
 With Node.js 22 or newer:
 
 ```sh
+npm run check
+npm run test:local
 npm start
 ```
 
-Then open **http://127.0.0.1:4173/**. Serve the files over HTTP rather than opening index.html directly.
+Run these commands from the repository root; no dependency installation is required. Then open **http://127.0.0.1:4173/**. Serve the files over HTTP rather than opening index.html directly.
 
 Run `npm run check` before publishing a modified public copy. It checks JavaScript syntax, local module references and the blank-profile boundary; it is not a complete security or accessibility audit.
 
@@ -198,6 +193,8 @@ docs/architecture.md  Module map and implementation walkthrough
 ```
 
 For static hosting, publish the `site/` directory. Production uses Cloudflare Workers with Static Assets. Its deployment adapter contains personal content and is deliberately excluded; the public client can run as static files. Account credentials, deployment tokens and private editor tools are not included. `site/_headers` contains response-header rules for compatible static hosts.
+
+See the [repository review](docs/repository-review-2026-11-18.md) for the current documentation and validation scope.
 
 ## About this repository
 

@@ -1,5 +1,7 @@
 # Third-party material
 
+Reviewed November 18, 2026.
+
 The root MIT License applies to Joshua Fuller's original application code and
 documentation. It does not relicense third-party material or grant trademark,
 photograph, likeness or other rights that Joshua Fuller does not own.

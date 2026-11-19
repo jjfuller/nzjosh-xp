@@ -1,5 +1,7 @@
 # Accessibility
 
+Reviewed November 18, 2026.
+
 NZJOSH XP aims to make its desktop experience usable with a keyboard, pointer and
 touch, while respecting reduced-motion preferences. Improvements and reports of
 barriers are welcome. This statement is not a claim of WCAG certification or a
@@ -15,6 +17,7 @@ completed independent accessibility audit.
 - System reduced-motion preferences affect the racing transition and taskbar car.
   The tray control can turn the decorative car off.
 - Windows adapt to smaller screens. Browser zoom remains available.
+- My Computer updates its accessible title and window-control labels as folders change.
 
 ## Known limitations
 
@@ -23,6 +26,7 @@ to navigate with assistive technology than a conventional document website.
 Some canvas-based game or Paint interactions are visual and pointer-oriented.
 The decorative racing circuit is not a substitute for an accessible data display.
 Third-party destination websites have their own accessibility behaviour.
+At short viewport heights, lower desktop shortcuts may overlap because their positions are clamped near the bottom. Rearrange shortcuts or use Start; a wrapping layout remains a known improvement.
 Compatibility can vary by browser, screen reader, device and zoom level.
 
 ## Report a barrier

@@ -1,5 +1,7 @@
 # Security policy
 
+Reviewed November 18, 2026.
+
 ## Supported versions
 
 Security reports are reviewed against the latest public release and current

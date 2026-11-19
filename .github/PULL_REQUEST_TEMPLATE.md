@@ -5,6 +5,7 @@
 ## Validation
 
 - [ ] Relevant JavaScript syntax checks pass.
+- [ ] `npm run test:local` passes when serving or public assets change.
 - [ ] Affected desktop and mobile interactions checked.
 - [ ] Keyboard access and reduced-motion behaviour checked where relevant.
 - [ ] Screenshots/logs contain no private information.

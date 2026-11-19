@@ -1,5 +1,7 @@
 # Code of conduct
 
+Reviewed November 18, 2026.
+
 Everyone participating in NZJOSH XP issues, pull requests and project discussions
 should be treated with respect, regardless of identity, background or experience.
 

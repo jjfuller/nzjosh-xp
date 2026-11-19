@@ -1,5 +1,7 @@
 # NZJOSH XP
 
+Reviewed November 18, 2026.
+
 Project implementation and design adaptation: **Joshua Fuller & ChatGPT**.
 
 This personal desktop implementation was written for NZJOSH.

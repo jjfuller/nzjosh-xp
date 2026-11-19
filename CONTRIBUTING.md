@@ -1,5 +1,7 @@
 # Contributing to NZJOSH XP
 
+Reviewed November 18, 2026.
+
 This is a personal, plain HTML/CSS/JavaScript desktop project. Discuss substantial
 changes in an issue before starting. Contributions are reviewed at the maintainer's
 discretion; there is no guaranteed response time or deployment commitment.
@@ -10,7 +12,7 @@ discretion; there is no guaranteed response time or deployment commitment.
 2. Use Node.js 22 or newer and run `npm start` for a local preview.
 3. Keep changes focused and preserve XP and McLaren appearance, keyboard access,
    mobile interactions, external-link confirmation and reduced-motion behaviour.
-4. Run `npm run check` for syntax, local imports and the public-content boundary.
+4. Run `npm run check` for syntax, local imports and the public-content boundary, then `npm run test:local` to verify HTTP serving and public assets.
 5. Verify the affected interaction in relevant desktop and touch layouts. Include
    browser/device details and screenshots without personal information.
 6. Use the pull request template to explain the problem, change and validation.
