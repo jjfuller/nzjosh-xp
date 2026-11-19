@@ -91,3 +91,9 @@ The approved Josh Bot cartoon is a documentation image, not a photographic portr
 boundaries. Human review is still required for new images, prose, asset permissions,
 screenshots and any new hardcoded personal data. The MIT License covers original
 code/documentation; third-party asset rights are described separately.
+
+## Single-window Explorer navigation
+
+`openApp()` redirects `gallery` and `achievements` to the existing `computer` instance and calls its `explorerNavigate()` method. The running-app key remains `computer`, while `explorer:location` events update the visible folder title, title-bar icon, taskbar metadata and accessible minimize/maximize/close names. The home location restores My Computer; history and breadcrumbs preserve the shared shell. Standalone apps keep their own instances.
+
+Each navigation removes stale Explorer chrome and clears the personal-picture flag. The gallery protection microtask verifies that the shell still contains a gallery before applying photo restrictions, preventing a delayed update from affecting certificate documents.

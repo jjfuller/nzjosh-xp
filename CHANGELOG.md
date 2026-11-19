@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026.11.18.9 — November 18, 2026
+
+- Reuse one My Computer window for all Pictures and Certificates entry points.
+- Synchronize folder titles, icons, taskbar entries and accessible control names, including Back/Forward navigation.
+- Clear photo-only protection state when leaving Pictures; keep document controls available.
+- Restore the NAS external confirmation flow after testing UGREEN embedding compatibility; omit the private NAS destination from this template.
+- Refresh public screenshots after a stationary settling period and inspect the bottom-left taskbar area.
+- Keep personal records, account links, photographs and resume documents excluded.
+
 ## 2026.11.18.4 — November 18, 2026
 
 - Refresh the public client from the latest Cloudflare deployment, keeping personal

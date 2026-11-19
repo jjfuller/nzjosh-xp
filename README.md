@@ -1,6 +1,6 @@
 # NZJOSH XP
 
-**Website version: 2026.11.18.4** · Updated November 18, 2026. This public source snapshot follows the current live interface, with personal data removed. See the [latest release](https://github.com/jjfuller/nzjosh-xp/releases/latest), [changelog](CHANGELOG.md) and [code walkthrough](docs/architecture.md).
+**Website version: 2026.11.18.9** · Updated November 18, 2026. This public source snapshot follows the current live interface, with personal data removed. See the [latest release](https://github.com/jjfuller/nzjosh-xp/releases/latest), [changelog](CHANGELOG.md) and [code walkthrough](docs/architecture.md).
 
 An interactive Windows XP desktop in your browser. Explore Joshua Fuller's desktop, browse photos and certificates, chat with Josh Bot, and stay for a game.
 
@@ -21,15 +21,25 @@ Works on desktop and phone. Open the site, select Josh's login tile, and dig aro
 
 ## What's new in this snapshot
 
-The November 18 refresh brings the newer Explorer and document components into the public project, alongside the latest desktop behaviour. The live site remains a personal portfolio; this repository is a reusable, blank-content version of its interface.
+The latest November 18 refresh brings the newer Explorer and document components into the public project, alongside the latest desktop behaviour. The live site remains a personal portfolio; this repository is a reusable, blank-content version of its interface.
 
-### My Computer and connected Explorer windows
+### My Computer: one window for folder navigation
 
-My Computer is now a desktop entry point for Pictures, Certificates & Awards and other locations. Connected toolbars, File/View/Help menus and address breadcrumbs provide routes between them. Folder interactions select with a mouse click and open with a double-click; touch and pen interactions can open with one tap, and keyboard controls remain available.
+My Computer is the home of folder navigation. Opening Pictures or Certificates & Awards from the desktop, Start menu, connected toolbar or Josh Bot reuses one Explorer window instead of creating another folder window. About Me, My Resume, Contact Me and other applications still open separately.
 
-![Current My Computer window with connected navigation and folders](docs/screenshots/my-computer-current.jpg)
+The title-bar name and icon, taskbar label and icon, and accessible window-control names follow the current folder or album. Going home restores **My Computer**. Back, Forward and address-bar breadcrumbs navigate within the same window.
 
-[`my-computer.js`](site/my-computer.js) manages the folder shell and embedded views. [`explorer-path.js`](site/explorer-path.js) creates navigable breadcrumbs, while [`xp-icon-refresh.js`](site/xp-icon-refresh.js) keeps the current XP-style icons and navigation artwork consistent. The Pictures implementation lives in [`gallery-explorer.js`](site/gallery-explorer.js).
+Mouse users click to select and double-click to open folders. Touch and pen users can open with one tap; keyboard navigation remains available. Switching from Pictures to certificates also clears photo-only restrictions so document downloads and printing retain their own behavior.
+
+![My Computer home with connected navigation and folders](docs/screenshots/my-computer-current.jpg)
+
+![Certificates navigation reusing the Explorer window with its matching title and taskbar icon](docs/screenshots/certificate-folders-current.jpg)
+
+[`desktop.js`](site/desktop.js) routes folder entry points through the `computer` app and synchronizes its title and icons on `explorer:location` events. [`my-computer.js`](site/my-computer.js) manages the shell and embedded views; [`explorer-path.js`](site/explorer-path.js) creates breadcrumbs, and [`gallery-explorer.js`](site/gallery-explorer.js) supplies Pictures.
+
+### External links and Fuller NAS
+
+The live Fuller NAS shortcut asks for confirmation before opening UGREEN in a separate browser tab. Embedding was tested and rejected because the UGREEN app failed when accessing its cross-origin parent. The public template retains the shortcut but contains no NAS account URL, credentials or personal server configuration. Other external links keep their confirmation flow.
 
 ### Certificates and the document viewer
 

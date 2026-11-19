@@ -1,8 +1,11 @@
 {
   "name": "nzjosh-xp-showcase",
-  "version": "2026.11.18-4",
+  "version": "2026.11.18-9",
   "private": true,
   "type": "module",
   "license": "MIT",
-  "scripts": {"start": "node scripts/serve.mjs", "check": "node scripts/check-public.mjs"}
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "check": "node scripts/check-public.mjs"
+  }
 }
