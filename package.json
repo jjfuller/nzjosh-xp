@@ -1,12 +1,13 @@
 {
   "name": "nzjosh-xp-showcase",
-  "version": "2026.11.18-9",
+  "version": "2026.11.18-10",
   "private": true,
   "type": "module",
   "license": "MIT",
   "scripts": {
     "start": "node scripts/serve.mjs",
     "check": "node scripts/check-public.mjs",
-    "test:local": "node scripts/check-local.mjs"
+    "test:local": "node scripts/check-local.mjs",
+    "test:layout": "node scripts/check-icon-layout.mjs"
   }
 }

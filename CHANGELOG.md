@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026.11.18.10 — November 18, 2026
+
+- Wrap desktop icons into additional columns on short desktop and mobile viewports.
+- Preserve valid manual positions, refresh persistence, group dragging and opening behavior.
+- Share placement between My Computer and other icons; avoid overwriting saved positions during responsive reflow.
+- Add nine-size layout checks for bounds, collisions and saved-position restoration.
+- Keep the public profile blank and personal files, credentials and account URLs excluded.
+
 ## 2026.11.18.9 — November 18, 2026
 
 - Reuse one My Computer window for all Pictures and Certificates entry points.

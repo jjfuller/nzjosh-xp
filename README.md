@@ -1,6 +1,6 @@
 # NZJOSH XP
 
-**Website version: 2026.11.18.9** · Updated November 18, 2026. This public source snapshot follows the current live interface, with personal data removed. See the [latest release](https://github.com/jjfuller/nzjosh-xp/releases/latest), [changelog](CHANGELOG.md) and [code walkthrough](docs/architecture.md).
+**Website version: 2026.11.18.10** · Updated November 18, 2026. This public source snapshot follows the current live interface, with personal data removed. See the [latest release](https://github.com/jjfuller/nzjosh-xp/releases/latest), [changelog](CHANGELOG.md) and [code walkthrough](docs/architecture.md).
 
 An interactive Windows XP desktop in your browser. Explore Joshua Fuller's desktop, browse photos and certificates, chat with Josh Bot, and stay for a game.
 
@@ -22,6 +22,12 @@ Works on desktop and phone. Open the site, select Josh's login tile, and dig aro
 ## What's new in this snapshot
 
 The latest November 18 refresh brings the newer Explorer and document components into the public project, alongside the latest desktop behaviour. The live site remains a personal portfolio; this repository is a reusable, blank-content version of its interface.
+
+### Desktop icons wrap on shorter screens
+
+Shortcuts fill each column from top to bottom, then continue in the next column above the taskbar. My Computer uses the same placement rules as every other shortcut. Valid saved drag positions stay in place; colliding or off-screen positions move into available space for the current viewport without overwriting saved preferences. Returning to a larger screen restores valid saved positions.
+
+Individual and selected-group dragging, click selection and app opening remain available. [`desktop-icon-layout.js`](site/desktop-icon-layout.js) calculates placement, while [`computer-shortcut.js`](site/computer-shortcut.js) adds My Computer without overriding its position. Browser checks covered short desktop, mobile portrait and mobile landscape sizes, refresh persistence and group dragging; mobile checks used browser-sized layouts rather than a physical phone.
 
 ### My Computer: one window for folder navigation
 
@@ -178,6 +184,7 @@ With Node.js 22 or newer:
 ```sh
 npm run check
 npm run test:local
+npm run test:layout
 npm start
 ```
 

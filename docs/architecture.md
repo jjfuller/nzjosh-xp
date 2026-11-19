@@ -97,3 +97,9 @@ code/documentation; third-party asset rights are described separately.
 `openApp()` redirects `gallery` and `achievements` to the existing `computer` instance and calls its `explorerNavigate()` method. The running-app key remains `computer`, while `explorer:location` events update the visible folder title, title-bar icon, taskbar metadata and accessible minimize/maximize/close names. The home location restores My Computer; history and breadcrumbs preserve the shared shell. Standalone apps keep their own instances.
 
 Each navigation removes stale Explorer chrome and clears the personal-picture flag. The gallery protection microtask verifies that the shell still contains a gallery before applying photo restrictions, preventing a delayed update from affecting certificate documents.
+
+## Responsive desktop icon placement
+
+`desktop-icon-layout.js` computes column-major positions above the taskbar using the active icon dimensions and viewport. Valid saved positions reserve space first; unsaved, off-screen and colliding shortcuts use available grid cells, with a free-space search when a manual position straddles cells. Responsive reflow does not write storage. `desktop.js` lays out all shortcut elements after login, insertion and resize; `computer-shortcut.js` announces insertion instead of imposing its own coordinates. The existing pointer-selection module continues to save deliberate individual and group drags.
+
+Run `npm run test:layout` for nine desktop/mobile sizes, collision recovery and restoration of saved positions. `npm run test:local` separately checks the actual HTTP preview and public assets.

@@ -26,7 +26,7 @@ to navigate with assistive technology than a conventional document website.
 Some canvas-based game or Paint interactions are visual and pointer-oriented.
 The decorative racing circuit is not a substitute for an accessible data display.
 Third-party destination websites have their own accessibility behaviour.
-At short viewport heights, lower desktop shortcuts may overlap because their positions are clamped near the bottom. Rearrange shortcuts or use Start; a wrapping layout remains a known improvement.
+Desktop shortcuts wrap into additional columns on shorter viewports and reflow around valid saved positions. Extremely small viewports with less room than the combined shortcut hit areas may still require a larger viewport or the Start menu.
 Compatibility can vary by browser, screen reader, device and zoom level.
 
 ## Report a barrier
