@@ -113,11 +113,11 @@ The five-second start sequence is also preparation time for the racing view. Ent
 | 4–5 seconds | All five paired columns are red. |
 | At 5 seconds | The lights disappear together and the papaya appearance activates. |
 
-![First paired column illuminated at the start of the countdown](docs/screenshots/lights-out-first-column.jpg)
+![Three paired columns illuminated on the current desktop during preparation](docs/screenshots/lights-out-three-landscape.jpg)
 
-![Three paired columns illuminated while the circuit prepares in the background](docs/screenshots/lights-out-preparing.jpg)
+![Four paired columns illuminated as the countdown advances](docs/screenshots/lights-out-four-landscape.jpg)
 
-![All five paired columns illuminated just before lights out](docs/screenshots/lights-out-countdown.jpg)
+![All five paired columns illuminated just before lights out](docs/screenshots/lights-out-five-landscape.jpg)
 
 The countdown calls `prepareCircuit()` immediately, which starts the asynchronous `mountCircuit()` work and avoids starting duplicate preparations. At five seconds, `completeCountdown()` removes the gantry and activates the theme. It is a fixed visual countdown, not a progress meter or a guarantee that every asset has finished loading. With reduced motion enabled, the countdown is skipped. Entering `classic` cancels an active sequence and restores XP.
 
