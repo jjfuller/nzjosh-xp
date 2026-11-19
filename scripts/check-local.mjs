@@ -21,6 +21,9 @@ try{
   if(name.endsWith('.js'))assert.match(response.headers.get('content-type'),/javascript/,name);
  }
  const home=await fetch(base+'/');assert.equal(home.status,200);assert.match(await home.text(),/desktop/);
+ for(const route of ['/about','/about/','/privacy','/privacy/']){
+  const page=await fetch(base+route);assert.equal(page.status,200,route);assert.match(await page.text(),/bsod-profile/,route);
+ }
  assert.equal((await fetch(base+'/missing-file')).status,404);
  assert.equal((await fetch(base+'/%2e%2e%2fpackage.json')).status,404);
  console.log(`Local HTTP preview passed: ${names.length} public files match disk; home, JavaScript MIME, missing-file and path-boundary checks passed. Browser interaction testing is separate.`);

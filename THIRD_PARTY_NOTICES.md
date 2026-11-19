@@ -30,3 +30,7 @@ acknowledges development assistance, not sponsorship or ownership by OpenAI.
 ## XP icon update
 
 `site/xp-icons/` contains selected icons supplied for the desktop interface, including Windows-style and Adobe PDF artwork. These assets are excluded from the MIT code license. No separate license file accompanied the supplied icon pack; inclusion does not establish permission to redistribute or reuse it. Microsoft, Adobe and other third-party marks remain with their respective owners.
+
+## System audio
+
+The live site uses owner-supplied Windows XP sound recordings. These recordings are not distributed in this repository or public release archive. Only the integration code is included under the code licence; it does not grant rights to third-party audio. Supply audio you have permission to use in a private deployment.

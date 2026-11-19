@@ -103,3 +103,9 @@ Each navigation removes stale Explorer chrome and clears the personal-picture fl
 `desktop-icon-layout.js` computes column-major positions above the taskbar using the active icon dimensions and viewport. Valid saved positions reserve space first; unsaved, off-screen and colliding shortcuts use available grid cells, with a free-space search when a manual position straddles cells. Responsive reflow does not write storage. `desktop.js` lays out all shortcut elements after login, insertion and resize; `computer-shortcut.js` announces insertion instead of imposing its own coordinates. The existing pointer-selection module continues to save deliberate individual and group drags.
 
 Run `npm run test:layout` for nine desktop/mobile sizes, collision recovery and restoration of saved positions. `npm run test:local` separately checks the actual HTTP preview and public assets.
+
+## Consent, sessions and public pages
+
+`analytics-consent.js` owns consent storage, the login-gated prompt, cross-tab changes, whitelisted events and withdrawal. Its public measurement ID is blank. The classic balloon CSS is separate from About/Privacy's scoped blue-screen rules. The module also exposes tray expansion and notification toggle states to assistive technology.
+
+`desktop.js` no longer restores login from sessionStorage at startup. Its allowlisted `openRequestedApp()` consumes supported URL fragments only after login. The audio helper handles user-triggered playback, cancellation, mute/volume, failures and restart timing; public audio is disabled until configured. See [configuration](configuration.md).

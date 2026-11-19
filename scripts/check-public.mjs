@@ -28,5 +28,9 @@ for(const file of files){
  if(file.endsWith('.json'))JSON.parse(text);
 }
 const certificates=await fs.readFile(path.join(site,'certificates.js'),'utf8');
+const analytics=await fs.readFile(path.join(site,'analytics-consent.js'),'utf8');
+if(!/^const ID = '';$/m.test(analytics))fail('Public Analytics measurement ID must stay blank');
+const desktop=await fs.readFile(path.join(site,'desktop.js'),'utf8');
+if(!desktop.includes('const SYSTEM_AUDIO_ENABLED=false;'))fail('Public system audio must stay disabled until licensed assets are configured');
 for(const name of ['recentCertificates','honors','fema','courses'])if(!certificates.includes('const '+name+'=[];'))fail('Personal credential collection must be empty: '+name);
 console.log(`Public checks passed: ${checked} JavaScript modules; blank profile and credential collections; local imports resolve. Review new images and prose manually before publishing.`);

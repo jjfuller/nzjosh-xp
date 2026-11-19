@@ -23,3 +23,7 @@ Run commands from the repository root with Node.js 22 or newer. Use `npm run che
 If port 4173 is occupied, stop your previous preview or choose a different port. In PowerShell use `$env:PORT=4174; npm start`; on macOS/Linux use `PORT=4174 npm start`. A firewall or execution sandbox may block loopback access; do not disable security protections. Run the preview in your ordinary trusted local development environment instead.
 
 An empty biography, photo collection, resume or credential list is expected in this public template. The live website has a separate private content source. Local smoke checks verify file serving, not every visual interaction or browser compatibility.
+
+## Optional features in this release
+
+Analytics and system audio are disabled by default in the public template. See [configuration](docs/configuration.md) before reporting missing tracking or sound. Refresh deliberately returns to login. About and Privacy use a blue-screen design; this is intentional page styling.

@@ -1,0 +1,26 @@
+.analytics-consent.app-window{position:fixed!important;inset:auto 16px 58px auto!important;width:min(440px,calc(100vw - 24px))!important;height:auto!important;max-height:calc(100dvh - 32px);z-index:2147483646!important;display:block!important;overflow:auto;background:#ece9d8!important;color:#111!important;border:3px solid #0054e3;border-radius:7px 7px 0 0;box-shadow:2px 3px 8px #0007;font:13px Tahoma,Arial,sans-serif;text-align:left;box-sizing:border-box}
+.analytics-title{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(#3090ff,#0054e3 55%,#0046c8);color:white!important;padding:3px 6px 3px 10px;min-height:30px}
+.analytics-title button{background:#c43c20;color:#fff;border:1px solid white;font-size:22px;min-width:44px;min-height:44px}
+.analytics-body{padding:4px 16px 16px}.analytics-body p{line-height:1.5;color:#111!important}.analytics-body a{color:#003b9b!important;text-decoration:underline}.analytics-actions{display:flex;gap:12px;justify-content:flex-end}.analytics-actions button,.analytics-preferences{font:inherit;color:#111!important;background:#f5f4e9;border:1px solid #576d88;border-radius:3px;padding:8px 12px;min-height:44px;cursor:pointer}.analytics-actions button{flex:1}.analytics-consent :focus-visible,.analytics-preferences:focus-visible{outline:2px solid #003e9c;outline-offset:2px}.analytics-current{font-size:12px}.hidden-tray .analytics-preferences{width:auto!important;height:auto!important;white-space:normal}.analytics-preferences{margin:4px}
+@media(max-width:600px){.analytics-consent.app-window{inset:auto 12px 54px 12px!important;width:calc(100vw - 24px)!important;max-height:calc(100dvh - 70px)}}
+@media print{.analytics-consent,.analytics-preferences{display:none!important}}
+
+/* Compact tray balloon, matching the pale-yellow Josh Bot notification. */
+.analytics-consent.app-window{width:min(330px,calc(100vw - 24px))!important;background:#ffffe1!important;border:1px solid #777;border-radius:8px;box-shadow:2px 3px 6px #0004;font-size:12px;overflow:visible}
+/* Two aligned triangles cover the bottom border and form one continuous pointer. */
+.analytics-consent:before,.analytics-consent:after{content:"";position:absolute;width:0;height:0;pointer-events:none;background:none;transform:none;z-index:auto;border-style:solid}
+.analytics-consent:before{right:26px;bottom:-12px;border-width:12px 12px 0;border-color:#777 transparent transparent}
+.analytics-consent:after{right:27px;bottom:-10px;border-width:11px 11px 0;border-color:#ffffe1 transparent transparent}
+.analytics-title{background:none!important;color:#111!important;min-height:28px;padding:2px 4px 0 12px}
+.analytics-title button{background:transparent;color:#333;border:0;font-size:20px;cursor:pointer}
+.analytics-body{padding:0 12px 12px;max-height:calc(100dvh - 150px);overflow:auto}.analytics-body p{line-height:1.4;margin:7px 0}.analytics-current{font-size:11px}.analytics-actions{gap:8px}.analytics-actions button{padding:6px 9px;font-size:12px}
+@media(max-width:600px){.analytics-consent.app-window{inset:auto 12px 54px auto!important;width:min(330px,calc(100vw - 24px))!important}}
+
+/* Compact XP tray menu, with visible hover, focus and toggle states. */
+#hidden-tray:not(.hidden){display:grid!important;grid-template-columns:1fr 1fr;gap:4px;padding:5px!important;width:200px!important;max-width:calc(100vw - 24px);height:auto!important;box-sizing:border-box;background:#ece9d8!important;border:1px solid #6d8aad;box-shadow:2px 2px 5px #0004}
+#hidden-tray button{box-sizing:border-box!important;margin:0!important;min-width:32px!important;min-height:32px!important;width:auto!important;height:auto!important;padding:5px 7px!important;border:1px solid transparent!important;border-radius:2px!important;background:transparent!important;color:#111!important;font:11px Tahoma,Arial,sans-serif!important;cursor:pointer}
+#hidden-tray .analytics-preferences,#hidden-tray #joshbot-notifications-toggle{grid-column:1 / -1;text-align:left;white-space:nowrap}
+#hidden-tray button:hover,#hidden-tray button:focus-visible{background:#c1d2ee!important;border-color:#316ac5!important;outline:1px dotted #244980;outline-offset:-4px}
+#hidden-tray button:active,#hidden-tray button[aria-pressed="true"]{background:#a7bfdf!important;border-color:#2459a6!important;box-shadow:inset 1px 1px 2px #6682aa}
+@media(pointer:coarse){#hidden-tray button{min-width:44px!important;min-height:44px!important}#hidden-tray:not(.hidden){grid-template-columns:1fr 1fr}}
+

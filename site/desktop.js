@@ -12,7 +12,7 @@ const icon=id=>id==='messenger'&&profile.botAvatar?profile.botAvatar:`assets/${c
 const desktop=$('#desktop'),windows=$('#windows'),startMenu=$('#start-menu');
 document.addEventListener('error',event=>{const image=event.target;if(image instanceof HTMLImageElement&&!image.dataset.fallbackApplied){image.dataset.fallbackApplied='true';image.src='assets/user.png';}},true);
 function applyProfile(){
-  document.title=profile.desktopTitle;
+  document.title=document.querySelector('meta[name="site-page-title"]')?.content||profile.desktopTitle;
   document.querySelectorAll('[data-name]').forEach(el=>el.textContent=profile.name||'Your name');
   document.querySelectorAll('[data-headline]').forEach(el=>el.textContent=profile.headline);
   document.querySelectorAll('[data-brand]').forEach(el=>{if(el.tagName==='STRONG')el.innerHTML=esc(profile.desktopTitle.replace(/\s*XP$/i,''))+'<span>xp</span>';else el.textContent=profile.desktopTitle;});
@@ -112,7 +112,7 @@ function confirmExternal(value){
   const parsed=new URL(url,location.href);
   const host=parsed.hostname.replace(/^www\./,'');
   const belongsTo=domain=>host===domain||host.endsWith('.'+domain);
-  const service=belongsTo('linkedin.com')?'LinkedIn':belongsTo('letterboxd.com')?'Letterboxd':belongsTo('steamcommunity.com')?'Steam':host==='ug.link'?'Fuller NAS':host;
+  const service=belongsTo('linkedin.com')?'LinkedIn':belongsTo('letterboxd.com')?'Letterboxd':belongsTo('steamcommunity.com')?'Steam':host;
   const logo=service==='LinkedIn'?'18bb588512d43a49.webp':service==='Letterboxd'?'letterboxd.svg':service==='Steam'?'steam.svg':service==='Fuller NAS'?'nas.svg':'display.svg';
   closeMenus();
   desktop.querySelector('.external-link-shade')?.remove();
@@ -144,15 +144,47 @@ function contextMenu(x,y,items){
 }
 function shutdownDialog(logoff){
   closeMenus();const shade=document.createElement('div');shade.className='modal-shade';shade.innerHTML=`<section class="shutdown-panel" role="dialog" aria-label="${logoff?'Log Off Windows':'Turn off computer'}"><h2>${logoff?'Log Off Windows':'Turn off computer'}</h2><div class="shutdown-choices">${logoff?'<button data-choice="logoff"><img src="assets/9b6fb4e8dc21d9b7.webp" alt="">Log Off</button>':'<button data-choice="off"><img src="assets/79e9cd623e255141.webp" alt="">Turn Off</button><button data-choice="restart"><img src="assets/9b6fb4e8dc21d9b7.webp" alt="">Restart</button>'}</div><footer><button class="xp-button" data-choice="cancel">Cancel</button></footer></section>`;desktop.append(shade);
-  shade.onclick=event=>{const choice=event.target.closest('[data-choice]')?.dataset.choice;if(!choice)return;shade.remove();if(choice==='cancel')return;botNotifications.stop();for(const id of [...running.keys()])close(id);sessionStorage.removeItem('nzjosh.logged-in');desktop.classList.add('hidden');if(choice==='off'){const boot=$('#boot-screen');boot.classList.remove('hidden');boot.innerHTML='<p style="color:#e8a44b;font:24px Arial">It is now safe to close this tab.</p><button class="xp-button" id="power-on">Restart desktop</button>';$('#power-on').onclick=()=>location.reload();}else if(choice==='restart')location.reload();else $('#login-screen').classList.remove('hidden');};
+  shade.onclick=async event=>{const choice=event.target.closest('[data-choice]')?.dataset.choice;if(!choice)return;shade.remove();if(choice==='cancel')return;const logoffSound=playSystemSound('logoff');botNotifications.stop();for(const id of [...running.keys()])close(id);sessionStorage.removeItem('nzjosh.logged-in');desktop.classList.add('hidden');if(choice==='off'){const boot=$('#boot-screen');boot.classList.remove('hidden');boot.innerHTML='<p style="color:#e8a44b;font:24px Arial">It is now safe to close this tab.</p><button class="xp-button" id="power-on">Restart desktop</button>';$('#power-on').onclick=()=>location.reload();}else if(choice==='restart'){$('#boot-screen').classList.remove('hidden');await logoffSound;location.reload();}else $('#login-screen').classList.remove('hidden');};
 }
-function startupTone(){if(!profile.startupSound||mute)return;try{const audio=new(window.AudioContext||window.webkitAudioContext)();[392,523.25,659.25,783.99].forEach((f,i)=>{const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.type='sine';oscillator.frequency.value=f;gain.gain.setValueAtTime(0,audio.currentTime+i*.17);gain.gain.linearRampToValueAtTime(volume*.035,audio.currentTime+i*.17+.04);gain.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+i*.17+1.1);oscillator.connect(gain);gain.connect(audio.destination);oscillator.start(audio.currentTime+i*.17);oscillator.stop(audio.currentTime+i*.17+1.2);});setTimeout(()=>audio.close(),2100);}catch{}}
+// Supplied XP audio plays only from user-initiated login/logoff controls.
+// Add licensed audio privately, then enable this setting. See sounds/README.md.
+const SYSTEM_AUDIO_ENABLED=false;
+let stopSystemSound=()=>{};
+function playSystemSound(kind){
+  if(!SYSTEM_AUDIO_ENABLED)return Promise.resolve();
+  stopSystemSound();
+  if(mute||volume<=0||(kind==='login'&&!profile.startupSound))return Promise.resolve();
+  const audio=document.createElement('audio');
+  audio.src=kind==='login'?'/sounds/xp-login.mp3':'/sounds/xp-logoff.mp3';
+  audio.preload='auto';audio.hidden=true;audio.volume=volume;audio.muted=mute;
+  audio.dataset.systemSound=kind;
+  document.body.append(audio);
+  return new Promise(resolve=>{
+    let finished=false;
+    const finish=()=>{if(finished)return;finished=true;clearTimeout(timer);audio.pause();audio.remove();if(stopSystemSound===finish)stopSystemSound=()=>{};resolve();};
+    const timer=setTimeout(finish,12000);
+    stopSystemSound=finish;
+    audio.addEventListener('ended',finish,{once:true});
+    audio.addEventListener('error',finish,{once:true});
+    try{audio.play().catch(finish);}catch{finish();}
+  });
+}
+function startupTone(){void playSystemSound('login');}
+// Public profile links open only these destinations, after normal desktop login.
+function openRequestedApp(){
+  const id={'#open=resume':'resume','#open=achievements':'achievements','#open=contact':'contact'}[location.hash];
+  if(!id||desktop.classList.contains('hidden'))return false;
+  history.replaceState(history.state,'',location.pathname+location.search);
+  void openApp(id);
+  return true;
+}
+window.addEventListener('hashchange',openRequestedApp);
 function login(){
   botNotifications.start();
   $('#login-screen').classList.add('hidden');$('#boot-screen').classList.add('hidden');desktop.classList.remove('hidden');placeIcons();sessionStorage.setItem('nzjosh.logged-in','true');startupTone();
-  if(!sessionStorage.getItem('nzjosh.welcomed')){sessionStorage.setItem('nzjosh.welcomed','true');setTimeout(()=>{if(!desktop.classList.contains('hidden')&&!running.size)openApp('messenger');},1400);}
+  if(!openRequestedApp()&&!sessionStorage.getItem('nzjosh.welcomed')){sessionStorage.setItem('nzjosh.welcomed','true');setTimeout(()=>{if(!desktop.classList.contains('hidden')&&!running.size)openApp('messenger');},1400);}
 }
-function showLogin(){ if(sessionStorage.getItem('nzjosh.logged-in')==='true')return;$('#boot-screen').classList.add('hidden');$('#login-screen').classList.remove('hidden');$('#login-button').focus(); }
+function showLogin(){ if(!desktop.classList.contains('hidden'))return;$('#boot-screen').classList.add('hidden');$('#login-screen').classList.remove('hidden');$('#login-button').focus(); }
 function clock(){const date=new Date();$('#clock').textContent=date.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});$('#clock').title=date.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});}
 document.addEventListener('click',event=>{
   const opener=event.target.closest('[data-open]');if(opener){event.preventDefault();openApp(opener.dataset.open);}
@@ -189,6 +221,8 @@ const selection=desktopSelection({desktop,icons:$('#desktop-icons'),open:openApp
 if(matchMedia('(pointer: coarse)').matches)$('#desktop-icons').addEventListener('click',event=>{const target=event.target.closest('[data-desktop]');if(target&&selection.canOpen())openApp(target.dataset.desktop);});
 const botNotifications=notifications({desktop,open:openApp,avatar:()=>profile.botAvatar||'assets/user.png',state:()=>({chatOpen:running.has('messenger')&&!running.get('messenger').minimized,gameFocused:['minesweeper'].includes(active),dialogOpen:!!desktop.querySelector('.modal-shade'),resumeOpen:running.has('resume'),certificatesOpen:running.has('achievements'),photosOpen:running.has('gallery')}),ding:()=>{if(mute)return;try{const a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.type='sine';o.frequency.setValueAtTime(880,a.currentTime);o.frequency.exponentialRampToValueAtTime(660,a.currentTime+.2);g.gain.setValueAtTime(volume*.035,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.4);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.4);setTimeout(()=>a.close(),500);}catch{}}});
 clock();setInterval(clock,1000);
-if(sessionStorage.getItem('nzjosh.logged-in')==='true')login();else setTimeout(showLogin,2000);
+// Login belongs to this document only: a refresh always starts logged out.
+sessionStorage.removeItem('nzjosh.logged-in');
+setTimeout(showLogin,2000);
 if(EDITOR_MODE&&new URLSearchParams(location.search).has('edit')){login();openApp('profile');}
 

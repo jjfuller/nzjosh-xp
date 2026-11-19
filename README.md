@@ -1,6 +1,6 @@
 # NZJOSH XP
 
-**Website version: 2026.11.18.10** · Updated November 18, 2026. This public source snapshot follows the current live interface, with personal data removed. See the [latest release](https://github.com/jjfuller/nzjosh-xp/releases/latest), [changelog](CHANGELOG.md) and [code walkthrough](docs/architecture.md).
+**Website version: 2026.11.18.20** · Updated November 18, 2026. This public source snapshot follows the current live interface, with personal data removed. See the [latest release](https://github.com/jjfuller/nzjosh-xp/releases/latest), [changelog](CHANGELOG.md) and [code walkthrough](docs/architecture.md).
 
 An interactive Windows XP desktop in your browser. Explore Joshua Fuller's desktop, browse photos and certificates, chat with Josh Bot, and stay for a game.
 
@@ -22,6 +22,18 @@ Works on desktop and phone. Open the site, select Josh's login tile, and dig aro
 ## What's new in this snapshot
 
 The latest November 18 refresh brings the newer Explorer and document components into the public project, alongside the latest desktop behaviour. The live site remains a personal portfolio; this repository is a reusable, blank-content version of its interface.
+
+### Tonight's update: consent, blue screens and session behaviour
+
+The latest build adds blue-screen-themed [About](site/about/index.html) and [Privacy](site/privacy/index.html) pages, with matching monospace privacy controls. About links open Resume, Certificates and Contact after normal user-tile login. Every refresh returns to the login screen and closes open apps, while browser preferences remain.
+
+A compact XP consent balloon appears after desktop login. Visitors can allow or decline analytics, then change their choice through the hidden tray menu. The tray now has clear hover, focus and enabled-toggle states. The public template contains **no Google measurement ID** and sends **no analytics by default**; the live site's consented integration is separate.
+
+Login/logoff playback code now supports supplied audio, volume/mute and waiting for audio before restart. Recordings are intentionally excluded from this distribution; optional sound playback is disabled until you provide licensed files. See [configuration](docs/configuration.md) for analytics, privacy copy, search discovery and audio setup.
+
+![Blue-screen About page in the sanitized public template](docs/screenshots/blue-screen-about-template.jpg)
+
+![Matching Privacy page in the sanitized public template](docs/screenshots/blue-screen-privacy-template.jpg)
 
 ### Desktop icons wrap on shorter screens
 
@@ -187,6 +199,8 @@ npm run test:local
 npm run test:layout
 npm start
 ```
+
+The blue-screen pages are available at `/about/` and `/privacy/` in the preview.
 
 Run these commands from the repository root; no dependency installation is required. Then open **http://127.0.0.1:4173/**. Serve the files over HTTP rather than opening index.html directly.
 

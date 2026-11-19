@@ -5,3 +5,7 @@ node_modules/
 .DS_Store
 Thumbs.db
 capture-report.json
+
+# Optional live audio is not part of the public template
+site/sounds/*.mp3
+site/sounds/*.wav

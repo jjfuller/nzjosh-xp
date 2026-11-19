@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026.11.18.20 — November 18, 2026
+
+- Add consent UI, compact accessible tray states, blue-screen public pages and connected app links.
+- Return to login after refresh; preserve browser preferences and analytics choice.
+- Add optional system-audio playback code with volume/mute and restart timing.
+- Keep Analytics ID blank and sound playback disabled; exclude live recordings and all personal content.
+- Update local directory-page serving, configuration guide and sanitized release download.
+
 ## 2026.11.18.10 — November 18, 2026
 
 - Wrap desktop icons into additional columns on short desktop and mobile viewports.

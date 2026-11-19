@@ -1,6 +1,6 @@
 # Repository review — November 18, 2026
 
-Website version: **2026.11.18.9**. This review updates the public template and its documentation; it does not deploy changes to nzjosh.com.
+Website version: **2026.11.18.20**. This review updates the public template and its documentation; it does not deploy changes to nzjosh.com.
 
 ## Reviewed scope
 
@@ -15,13 +15,17 @@ Website version: **2026.11.18.9**. This review updates the public template and i
 - The car illustration shows the bottom quarter so the taskbar racer is visible. The requested chat screenshot and NAS README section were removed.
 - The local server no longer contains an obsolete personal resume-download filename. Its path boundary uses a relative-path check and its port can be selected with `PORT`.
 - `npm run test:local` exercises the actual local server and compares every served public file against disk, plus home, JavaScript MIME, 404 and encoded path-boundary checks.
-- Support and contribution instructions explain the commands, loopback restrictions, occupied ports and expected empty personal-content views. Accessibility notes acknowledge short-height shortcut overlap rather than implying it is fixed in the live product.
+- Support and contribution instructions explain the commands, loopback restrictions, occupied ports and expected empty personal-content views. The responsive icon placement fix remains covered by nine desktop/mobile layout cases.
 
 ## Validation performed
 
-- `npm run check`: 32 JavaScript modules passed; blank profile, credential collections and local imports verified.
-- `npm run test:local`: 128 public files matched disk through HTTP; route and path-boundary checks passed.
+- `npm run check`: 35 JavaScript modules passed; blank profile, credential collections and local imports verified.
+- `npm run test:local`: 136 public files matched disk through HTTP; route and path-boundary checks passed.
 - Browser smoke check on the local public template: welcome/login, desktop, My Computer, Certificates, Back navigation and empty Pictures worked; no console errors were observed during those checks.
 - Personal uploads, biography and contact records, resume documents, credential IDs, account URLs and secrets remain excluded. The approved Josh Bot cartoon remains documentation artwork.
 
 The local HTTP checks required loopback network permission in the maintenance environment. They do not contact external APIs. Browser smoke checks cover the observed Chromium session; Firefox, Safari, Edge and assistive-technology regression testing were not repeated for this documentation/server update.
+
+## Final nightly update
+
+Reviewed the blue-screen pages, opt-in consent integration, refresh logout, tray accessibility and optional audio integration. The template measurement ID stays blank, personal-content collections remain empty and sound recordings are excluded. Directory-style About/Privacy routes passed local HTTP checks. Historical screenshots are retained where the interface is unchanged; new blue-screen captures use the sanitized local template.
